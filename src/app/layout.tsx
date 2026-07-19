@@ -33,7 +33,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="vi" className={`${mono.variable} ${serif.variable}`}>
+    <html
+      lang="vi"
+      className={`${mono.variable} ${serif.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>

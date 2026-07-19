@@ -5,6 +5,7 @@ import type { PartialBlock } from "@blocknote/core";
 import { createClient } from "@/lib/supabase/server";
 import type { Post } from "@/lib/types";
 import PostView from "@/components/PostView";
+import Toc from "@/components/Toc";
 
 export const dynamic = "force-dynamic";
 
@@ -47,35 +48,39 @@ export default async function PostPage({
   if (!post) notFound();
 
   return (
-    <main className="container" style={{ maxWidth: "100%", paddingTop: 32 }}>
-      <div style={{ maxWidth: "var(--content-width)", margin: "0 auto 20px" }}>
-        <Link href="/" className="btn btn-ghost">
-          ← home
-        </Link>
+    <main className="post-page reading-layout">
+      <div className="main">
+        <div style={{ marginBottom: 20 }}>
+          <Link href="/" className="btn btn-ghost">
+            ← home
+          </Link>
+        </div>
+
+        <header className="post-head">
+          <div className="post-kicker">
+            root@kaiversus:~/{post.category}$ cat {post.slug ?? post.id}.md
+          </div>
+          <h1 className="post-h1">{post.title}</h1>
+          <div className="post-submeta">
+            <span>[ {fmt(post.published_at)} ]</span>
+            {post.difficulty && (
+              <span className="badge badge-published">{post.difficulty}</span>
+            )}
+            {post.author && <span>· {post.author}</span>}
+            {post.tags?.map((t) => (
+              <span key={t} style={{ color: "var(--text-sub)" }}>
+                #{t}
+              </span>
+            ))}
+          </div>
+        </header>
+
+        <hr className="post-divider" />
+
+        <PostView content={(post.content as PartialBlock[]) ?? []} />
       </div>
 
-      <header className="post-head">
-        <div className="post-kicker">
-          root@kaiversus:~/{post.category}$ cat {post.slug ?? post.id}.md
-        </div>
-        <h1 className="post-h1">{post.title}</h1>
-        <div className="post-submeta">
-          <span>[ {fmt(post.published_at)} ]</span>
-          {post.difficulty && (
-            <span className="badge badge-published">{post.difficulty}</span>
-          )}
-          {post.author && <span>· {post.author}</span>}
-          {post.tags?.map((t) => (
-            <span key={t} style={{ color: "var(--text-sub)" }}>
-              #{t}
-            </span>
-          ))}
-        </div>
-      </header>
-
-      <hr className="post-divider" />
-
-      <PostView content={(post.content as PartialBlock[]) ?? []} />
+      <Toc target="#post-content" />
     </main>
   );
 }

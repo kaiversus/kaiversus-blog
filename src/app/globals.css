@@ -311,11 +311,80 @@ footer.site-footer {
 footer.site-footer strong { color: var(--text); }
 
 /* ============================================================
+   Bố cục đọc/soạn 2 cột: nội dung + TOC bên phải (giống blog cũ)
+   ============================================================ */
+.reading-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px;
+  gap: 40px;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 32px;
+  align-items: start;
+}
+.reading-layout .main { min-width: 0; }
+
+.reading-toc {
+  width: 200px;
+  align-self: start;
+  position: sticky;
+  top: 90px;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.reading-toc::-webkit-scrollbar { display: none; }
+
+.toc-title {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #4a5a70;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+html.light .toc-title { color: #8a7a60; }
+
+.toc-list {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #1e2d3d;
+  padding-left: 12px;
+}
+html.light .toc-list { border-left-color: #c8bfaa; }
+
+.toc-link {
+  font-family: var(--mono);
+  font-size: 0.67rem;
+  line-height: 1.5;
+  padding: 4px 0;
+  color: #7a8fa0;
+  cursor: pointer;
+  text-decoration: none;
+  word-break: break-word;
+  transition: color 0.18s;
+}
+.toc-link:hover { color: #c8cdd6; }
+.toc-link.h1, .toc-link.h2 { color: #9ab0c0; font-weight: 700; margin-top: 6px; }
+.toc-link.h3 { padding-left: 10px; font-size: 0.62rem; color: #607080; }
+.toc-link.h4 { padding-left: 20px; font-size: 0.6rem; color: #607080; }
+.toc-link.active { color: #3fb950; }
+html.light .toc-link { color: #9a8a70; }
+html.light .toc-link:hover { color: #2a2520; }
+html.light .toc-link.h1, html.light .toc-link.h2 { color: #8a7a60; }
+html.light .toc-link.h3, html.light .toc-link.h4 { color: #aa9a80; }
+html.light .toc-link.active { color: #1e6e28; }
+
+@media (max-width: 900px) {
+  .reading-layout { grid-template-columns: 1fr; padding: 0 20px; }
+  .reading-toc { display: none; }
+}
+
+/* ============================================================
    Editor full-screen (trang /edit)
    ============================================================ */
-body.editing footer.site-footer {
-  display: none;
-}
+body.editing footer.site-footer { display: none; }
 
 .editor-shell {
   min-height: calc(100vh - 62px);
@@ -345,19 +414,17 @@ body.editing footer.site-footer {
   gap: 6px;
   color: var(--text-muted);
 }
-.save-pill.saving { color: var(--text-muted); }
 .save-pill.saved { color: var(--green); }
 .save-pill.error { color: var(--red); }
 
 .editor-doc {
   flex: 1;
-  padding: 40px clamp(16px, 4vw, 32px) 120px;
+  padding: 36px 0 140px;
 }
+.editor-doc .reading-toc { top: 120px; }
 
 .doc-title-input {
   width: 100%;
-  max-width: var(--content-width);
-  margin: 0 auto 6px;
   display: block;
   font-size: 2rem;
   font-weight: 800;
@@ -366,18 +433,17 @@ body.editing footer.site-footer {
   background: transparent;
   color: var(--text);
   font-family: var(--mono);
-  padding: 0 54px; /* khớp padding trái của BlockNote để tiêu đề thẳng hàng nội dung */
+  margin-bottom: 6px;
+  padding: 0 54px; /* khớp padding trong của BlockNote để tiêu đề thẳng hàng nội dung */
 }
 .doc-title-input::placeholder { color: var(--text-faint); }
 .doc-title-input:focus { outline: none; }
 
 .doc-meta-row {
-  width: 100%;
-  max-width: var(--content-width);
-  margin: 0 auto 20px;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  margin-bottom: 16px;
   padding: 0 54px;
 }
 .doc-meta-row .txt {
@@ -399,11 +465,8 @@ body.editing footer.site-footer {
 /* ============================================================
    Trang blog công khai (/p/[slug])
    ============================================================ */
-.post-head {
-  max-width: var(--content-width);
-  margin: 0 auto 8px;
-  padding: 0 4px;
-}
+.post-page { padding: 40px 0 100px; }
+.post-head { margin-bottom: 8px; padding: 0 4px; }
 .post-kicker {
   font-size: 0.72rem;
   color: var(--text-muted);
@@ -424,8 +487,7 @@ body.editing footer.site-footer {
   align-items: center;
 }
 .post-divider {
-  max-width: var(--content-width);
-  margin: 22px auto 8px;
+  margin: 22px 0 8px;
   border: 0;
   border-top: 1px dashed var(--border);
 }

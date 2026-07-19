@@ -1,29 +1,105 @@
 /* ============================================================
-   Tinh chỉnh BlockNote để editor và trang blog blend với theme
-   terminal của site. Áp cho MỌI .bn-container nên editor (lúc
-   viết) và viewer (trang blog) trông y hệt nhau.
+   Ép nội dung BlockNote (cả editor lẫn trang blog) trông y hệt
+   phong cách bài viết của blog cũ. Vì editor và viewer cùng render
+   trong .bn-container nên chỉ cần style một lần là khớp cả hai.
    ============================================================ */
+
+.doc-surface {
+  width: 100%;
+  margin: 0;
+}
 
 .bn-container {
   background: transparent !important;
-  font-size: 1rem;
-}
-
-/* Code block / inline code dùng font mono cho khớp phong cách */
-.bn-container [data-content-type="codeBlock"],
-.bn-container [data-content-type="codeBlock"] *,
-.bn-container code {
   font-family: var(--mono) !important;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--text);
 }
 
-/* Khung soạn thảo / đọc: bề rộng cột chữ dễ đọc, canh giữa */
-.doc-surface {
-  width: 100%;
-  max-width: var(--content-width);
-  margin: 0 auto;
+/* Bề rộng cột chữ để canh giữa nội dung trong khung soạn thảo */
+.bn-container .bn-editor {
+  padding-inline: 54px;
 }
 
-/* Viewer (read-only) bỏ con trỏ text để cảm giác là bài đọc */
-.post-view .bn-editor {
-  cursor: default;
+/* ── Headings ── */
+.bn-container [data-content-type="heading"] {
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: #4ade80;
+  margin-top: 2.2em;
+  margin-bottom: 0.9em;
+  scroll-margin-top: 110px;
 }
+html.light .bn-container [data-content-type="heading"] { color: #1e6e28; }
+.bn-container [data-content-type="heading"][data-level="1"] {
+  font-size: 1.8rem;
+}
+.bn-container [data-content-type="heading"][data-level="2"] {
+  font-size: 1.5rem;
+}
+.bn-container [data-content-type="heading"][data-level="3"] {
+  color: #ffffff;
+  font-size: 1.2rem;
+  border-left: 3px solid #e8002a;
+  padding-left: 14px;
+}
+html.light .bn-container [data-content-type="heading"][data-level="1"],
+html.light .bn-container [data-content-type="heading"][data-level="2"] {
+  color: #1e6e28;
+}
+html.light .bn-container [data-content-type="heading"][data-level="3"] {
+  color: #1c1a14;
+  border-left-color: #9e001c;
+}
+
+/* ── Links ── */
+.bn-container a {
+  color: #4ade80 !important;
+  text-decoration: none;
+  border-bottom: 1px dashed #4ade80;
+}
+.bn-container a:hover {
+  color: #fff;
+  background: rgba(0, 255, 65, 0.1);
+}
+html.light .bn-container a {
+  color: #1e6e28 !important;
+  border-bottom-color: #1e6e28;
+}
+html.light .bn-container a:hover {
+  color: #0a3a10;
+  background: rgba(30, 110, 40, 0.08);
+}
+
+/* ── Inline code ── */
+.bn-container code {
+  background: #21262d;
+  color: #4ade80;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: var(--mono);
+}
+html.light .bn-container code {
+  background: rgba(0, 0, 0, 0.07);
+  color: #8a5800;
+}
+
+/* ── Code block ── giữ font mono, viền gọn */
+.bn-container [data-content-type="codeBlock"] {
+  font-family: var(--mono) !important;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.86rem;
+}
+.bn-container [data-content-type="codeBlock"] code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+/* Viewer (read-only): con trỏ mặc định */
+.post-view .bn-editor { cursor: default; }
