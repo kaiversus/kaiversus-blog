@@ -47,40 +47,66 @@ export default async function PostPage({
   const post = await getPost(slug);
   if (!post) notFound();
 
+  const backHref =
+    post.category === "writeup"
+      ? "/writeups"
+      : post.category === "project"
+        ? "/projects"
+        : "/courses";
+  const backLabel =
+    post.category === "writeup"
+      ? "Back to Archive"
+      : post.category === "project"
+        ? "Back to Projects"
+        : "Back to Courses";
+
   return (
-    <main className="post-page reading-layout">
-      <div className="main">
-        <div style={{ marginBottom: 20 }}>
-          <Link href="/" className="btn btn-ghost">
-            ← home
-          </Link>
+    <div className="writeup-container">
+      <article className="writeup-content">
+        <div className="writeup-header">
+          <div className="terminal-prompt">
+            <span style={{ color: "#4ade80" }}>
+              root@kaiversus:~/{post.category}$
+            </span>{" "}
+            cat {post.slug ?? post.id}.md
+          </div>
+          <h1>{post.title}</h1>
+          <div className="writeup-meta">
+            [ DATE: {fmt(post.published_at)} ]
+            {post.difficulty && (
+              <>
+                {" "}
+                | LEVEL:{" "}
+                <span style={{ color: "#ffaa00", fontWeight: 700 }}>
+                  {post.difficulty}
+                </span>
+              </>
+            )}
+            {post.author && <> | AUTHOR: {post.author}</>}
+          </div>
         </div>
 
-        <header className="post-head">
-          <div className="post-kicker">
-            root@kaiversus:~/{post.category}$ cat {post.slug ?? post.id}.md
-          </div>
-          <h1 className="post-h1">{post.title}</h1>
-          <div className="post-submeta">
-            <span>[ {fmt(post.published_at)} ]</span>
-            {post.difficulty && (
-              <span className="badge badge-published">{post.difficulty}</span>
-            )}
-            {post.author && <span>· {post.author}</span>}
-            {post.tags?.map((t) => (
-              <span key={t} style={{ color: "var(--text-sub)" }}>
-                #{t}
-              </span>
-            ))}
-          </div>
-        </header>
-
-        <hr className="post-divider" />
-
         <PostView content={(post.content as PartialBlock[]) ?? []} />
-      </div>
 
-      <Toc target="#post-content" />
-    </main>
+        <div
+          style={{
+            marginTop: 50,
+            borderTop: "1px dashed var(--border)",
+            paddingTop: 20,
+          }}
+        >
+          <Link href={backHref} style={{ color: "var(--text-muted)" }}>
+            [ cd .. ] {backLabel}
+          </Link>
+        </div>
+      </article>
+
+      <aside className="writeup-sidebar">
+        <div className="toc-wrapper">
+          <div className="toc-title">ON THIS PAGE</div>
+          <Toc target="#post-content" bare />
+        </div>
+      </aside>
+    </div>
   );
 }

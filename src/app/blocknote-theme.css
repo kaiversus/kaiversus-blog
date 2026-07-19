@@ -120,5 +120,7 @@ html.light .bn-container [data-content-type="codeBlock"] {
   border-color: #c8bfaa;
 }
 
-/* Viewer (read-only): con trỏ mặc định */
-.post-view .bn-editor { cursor: default; }
+/* Viewer (read-only) trên trang blog: KHÔNG bọc hộp, nội dung chảy sát header
+   như writeup cũ (bỏ padding trong của BlockNote) */
+.post-view { background: transparent; border: none; }
+.post-view .bn-editor { cursor: default; padding-inline: 0; }

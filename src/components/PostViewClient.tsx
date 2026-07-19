@@ -15,7 +15,7 @@ export default function PostView({ content }: { content: PartialBlock[] }) {
   });
 
   return (
-    <div className="post-view doc-surface" id="post-content">
+    <div className="post-view" id="post-content">
       <BlockNoteView editor={editor} editable={false} theme={theme} />
     </div>
   );

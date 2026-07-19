@@ -6,7 +6,13 @@ type Item = { key: string; text: string; level: number; el: HTMLElement };
 
 // Tự dựng mục lục từ các heading BlockNote trong `target`, cập nhật khi
 // nội dung đổi (gõ trong editor) hoặc khi viewer render xong.
-export default function Toc({ target }: { target: string }) {
+export default function Toc({
+  target,
+  bare = false,
+}: {
+  target: string;
+  bare?: boolean;
+}) {
   const [items, setItems] = useState<Item[]>([]);
   const [active, setActive] = useState<string>("");
   const itemsRef = useRef<Item[]>([]);
@@ -69,22 +75,32 @@ export default function Toc({ target }: { target: string }) {
 
   if (items.length === 0) return null;
 
+  const links = items.map((it) => (
+    <a
+      key={it.key}
+      className={`${bare ? "" : "toc-link "}h${it.level}${active === it.key ? " active" : ""}`}
+      onClick={() =>
+        it.el.scrollIntoView({ behavior: "smooth", block: "start" })
+      }
+    >
+      {it.text}
+    </a>
+  ));
+
+  // Chế độ bare: render #custom-toc giống hệt sidebar của blog cũ
+  // (khung toc-wrapper/toc-title do trang cha cung cấp).
+  if (bare) {
+    return (
+      <nav id="custom-toc" style={{ display: "flex", flexDirection: "column" }}>
+        {links}
+      </nav>
+    );
+  }
+
   return (
     <nav className="reading-toc">
       <div className="toc-title">ON THIS PAGE</div>
-      <div className="toc-list">
-        {items.map((it) => (
-          <a
-            key={it.key}
-            className={`toc-link h${it.level} ${active === it.key ? "active" : ""}`}
-            onClick={() =>
-              it.el.scrollIntoView({ behavior: "smooth", block: "start" })
-            }
-          >
-            {it.text}
-          </a>
-        ))}
-      </div>
+      <div className="toc-list">{links}</div>
     </nav>
   );
 }

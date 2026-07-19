@@ -120,6 +120,13 @@ a {
   color: var(--text-muted);
 }
 
+/* Meta của trang bài (dưới tiêu đề writeup) */
+.writeup-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
 /* ── Buttons: .btn/.btn-green/.btn-ghost do legacy.css lo; chỉ thêm biến thể ── */
 .btn-danger:hover { border-color: var(--red) !important; color: var(--red) !important; }
 
