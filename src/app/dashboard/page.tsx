@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { type Post } from "@/lib/types";
 import { createPost, deletePost } from "./actions";
+import MigrateButton from "@/components/MigrateButton";
 
 export const dynamic = "force-dynamic";
 
@@ -33,7 +34,8 @@ export default async function Dashboard() {
             &gt; {user?.email} · {drafts.length} draft · {published.length} published
           </div>
         </div>
-        <div style={{ display: "flex", gap: 10 }}>
+        <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+          <MigrateButton />
           <form action={createPost}>
             <button className="btn btn-green">+ note mới</button>
           </form>

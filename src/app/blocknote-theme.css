@@ -4,9 +4,14 @@
    trong .bn-container nên chỉ cần style một lần là khớp cả hai.
    ============================================================ */
 
+/* Khung soạn thảo / đọc: panel có nền riêng, tách biệt với nền trang */
 .doc-surface {
   width: 100%;
   margin: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 0;
 }
 
 .bn-container {
@@ -17,9 +22,9 @@
   color: var(--text);
 }
 
-/* Bề rộng cột chữ để canh giữa nội dung trong khung soạn thảo */
+/* Padding trong panel (chừa lề cho block handle của BlockNote) */
 .bn-container .bn-editor {
-  padding-inline: 54px;
+  padding-inline: 44px;
 }
 
 /* ── Headings ── */

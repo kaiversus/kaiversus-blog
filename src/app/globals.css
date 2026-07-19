@@ -24,7 +24,7 @@
   --serif: "Newsreader", Georgia, serif;
 
   --radius: 6px;
-  --content-width: 780px;
+  --content-width: 820px;
 }
 
 html.light {
@@ -315,14 +315,13 @@ footer.site-footer strong { color: var(--text); }
    ============================================================ */
 .reading-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 200px;
+  grid-template-columns: var(--content-width) 200px;
+  justify-content: center;
   gap: 40px;
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 24px;
   align-items: start;
 }
-.reading-layout .main { min-width: 0; }
+.reading-layout .main { min-width: 0; width: var(--content-width); }
 
 .reading-toc {
   width: 200px;
@@ -376,8 +375,9 @@ html.light .toc-link.h1, html.light .toc-link.h2 { color: #8a7a60; }
 html.light .toc-link.h3, html.light .toc-link.h4 { color: #aa9a80; }
 html.light .toc-link.active { color: #1e6e28; }
 
-@media (max-width: 900px) {
-  .reading-layout { grid-template-columns: 1fr; padding: 0 20px; }
+@media (max-width: 1120px) {
+  .reading-layout { grid-template-columns: minmax(0, var(--content-width)); padding: 0 20px; }
+  .reading-layout .main { width: 100%; }
   .reading-toc { display: none; }
 }
 
@@ -419,7 +419,7 @@ body.editing footer.site-footer { display: none; }
 
 .editor-doc {
   flex: 1;
-  padding: 36px 0 140px;
+  padding: 32px 24px 140px;
 }
 .editor-doc .reading-toc { top: 120px; }
 
@@ -434,7 +434,7 @@ body.editing footer.site-footer { display: none; }
   color: var(--text);
   font-family: var(--mono);
   margin-bottom: 6px;
-  padding: 0 54px; /* khớp padding trong của BlockNote để tiêu đề thẳng hàng nội dung */
+  padding: 0 44px; /* khớp lề trong của panel BlockNote */
 }
 .doc-title-input::placeholder { color: var(--text-faint); }
 .doc-title-input:focus { outline: none; }
@@ -444,7 +444,7 @@ body.editing footer.site-footer { display: none; }
   gap: 10px;
   flex-wrap: wrap;
   margin-bottom: 16px;
-  padding: 0 54px;
+  padding: 0 44px;
 }
 .doc-meta-row .txt {
   width: auto;

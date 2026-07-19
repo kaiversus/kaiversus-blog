@@ -1,12 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Cho phép hiển thị ảnh upload lên Supabase Storage qua next/image nếu cần.
   images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "*.supabase.co" },
-    ],
+    remotePatterns: [{ protocol: "https", hostname: "*.supabase.co" }],
   },
+  // Dùng ở route /api/migrate để parse markdown → block. Externalize để
+  // require ở runtime Node, tránh lỗi react-server (createContext).
+  serverExternalPackages: ["@blocknote/server-util"],
 };
 
 export default nextConfig;
