@@ -341,11 +341,15 @@ body.editing footer { display: none; }
 .save-pill.saved { color: var(--green); }
 .save-pill.error { color: var(--red); }
 
-.editor-doc {
+.editor-doc.writeup-container {
   flex: 1;
-  padding: 32px 24px 140px;
+  margin: 14px auto 0;
+  padding-bottom: 140px;
+  align-items: flex-start;
 }
-.editor-doc .reading-toc { top: 120px; }
+/* Sidebar TOC trong editor: đẩy xuống dưới thanh editor-bar */
+.editor-doc .writeup-sidebar,
+.editor-doc .toc-wrapper { top: 118px; }
 
 .doc-title-input {
   width: 100%;

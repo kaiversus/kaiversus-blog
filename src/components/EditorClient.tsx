@@ -175,8 +175,8 @@ export default function Editor({
         </button>
       </div>
 
-      <div className="editor-doc reading-layout">
-        <div className="main">
+      <div className="editor-doc writeup-container">
+        <article className="wc-main">
           <input
             className="doc-title-input"
             placeholder="Tiêu đề..."
@@ -227,12 +227,17 @@ export default function Editor({
             />
           </div>
 
-          <div className="doc-surface" id="edit-content">
+          <div id="edit-content">
             <BlockNoteView editor={editor} theme={theme} onChange={schedule} />
           </div>
-        </div>
+        </article>
 
-        <Toc target="#edit-content" />
+        <aside className="writeup-sidebar">
+          <div className="toc-wrapper">
+            <div className="toc-title">ON THIS PAGE</div>
+            <Toc target="#edit-content" bare />
+          </div>
+        </aside>
       </div>
     </div>
   );
