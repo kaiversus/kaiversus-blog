@@ -1,11 +1,7 @@
 export type PostStatus = "draft" | "published";
 
-export type PostCategory =
-  | "malware"
-  | "thm"
-  | "writeup"
-  | "project"
-  | "note";
+// Danh mục là chuỗi tự do (có thể thêm "khóa học" mới); danh sách dưới chỉ là gợi ý.
+export type PostCategory = string;
 
 export interface Post {
   id: string;

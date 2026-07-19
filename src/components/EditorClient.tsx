@@ -31,7 +31,13 @@ function deriveExcerpt(blocks: PartialBlock[]): string | null {
   return s || null;
 }
 
-export default function Editor({ post }: { post: Post }) {
+export default function Editor({
+  post,
+  categories = [],
+}: {
+  post: Post;
+  categories?: string[];
+}) {
   const theme = useSiteTheme();
   const [title, setTitle] = useState(post.title);
   const [category, setCategory] = useState<PostCategory>(post.category);
@@ -41,6 +47,11 @@ export default function Editor({ post }: { post: Post }) {
   const [save, setSave] = useState<SaveState>("idle");
   const [confirmDel, setConfirmDel] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const catOptions = useMemo(() => {
+    const defaults = CATEGORIES.map((c) => c.value);
+    return [...new Set([...defaults, ...categories])];
+  }, [categories]);
 
   const initialContent = useMemo(() => {
     const c = post.content;
@@ -177,20 +188,21 @@ export default function Editor({ post }: { post: Post }) {
           />
 
           <div className="doc-meta-row">
-            <select
+            <input
               className="txt"
+              list="cat-suggestions"
+              placeholder="danh mục / khóa học"
               value={category}
               onChange={(e) => {
-                setCategory(e.target.value as PostCategory);
+                setCategory(e.target.value);
                 schedule();
               }}
-            >
-              {CATEGORIES.map((c) => (
-                <option key={c.value} value={c.value}>
-                  {c.label}
-                </option>
+            />
+            <datalist id="cat-suggestions">
+              {catOptions.map((c) => (
+                <option key={c} value={c} />
               ))}
-            </select>
+            </datalist>
             <select
               className="txt"
               value={difficulty}

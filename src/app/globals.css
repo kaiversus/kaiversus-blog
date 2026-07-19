@@ -22,6 +22,7 @@
 
   --mono: "JetBrains Mono", "Courier New", monospace;
   --serif: "Newsreader", Georgia, serif;
+  --ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   --radius: 6px;
   --content-width: 820px;
@@ -398,14 +399,23 @@ body.editing footer.site-footer { display: none; }
   z-index: 50;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
   padding: 10px clamp(16px, 4vw, 32px);
-  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
   backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-dim);
+  font-family: var(--ui);
 }
 .editor-bar .spacer { flex: 1; }
+/* Nút trong bar: tối giản, sans, nhẹ */
+.editor-bar .btn {
+  font-family: var(--ui);
+  font-weight: 500;
+  font-size: 0.8rem;
+  padding: 7px 13px;
+  border-radius: 8px;
+}
 
 .save-pill {
   font-size: 0.72rem;
@@ -448,12 +458,21 @@ body.editing footer.site-footer { display: none; }
 }
 .doc-meta-row .txt {
   width: auto;
+  font-family: var(--ui);
   font-size: 0.78rem;
   padding: 6px 10px;
   background: transparent;
-  border-color: var(--border-dim);
+  border: 1px solid var(--border-dim);
+  border-radius: 8px;
 }
 .doc-meta-row .txt.tags { flex: 1; min-width: 160px; }
+
+/* ── Admin (dashboard) tối giản: font sans, nhẹ nhàng ── */
+.admin { font-family: var(--ui); }
+.admin .page-title { font-family: var(--ui); letter-spacing: -0.01em; }
+.admin .btn { font-family: var(--ui); font-weight: 500; border-radius: 8px; }
+.admin .dash-row { font-family: var(--ui); border-radius: 10px; }
+.admin .dash-row .btn { font-size: 0.76rem; padding: 6px 11px; }
 
 /* Nút xoá 2 bước */
 .del-btn.confirm {

@@ -19,5 +19,12 @@ export default async function EditPage({
     .single();
 
   if (!data) notFound();
-  return <Editor post={data as Post} />;
+
+  // Gợi ý danh mục = các danh mục đã dùng trong DB
+  const { data: catRows } = await supabase.from("posts").select("category");
+  const categories = [
+    ...new Set((catRows ?? []).map((r) => r.category as string).filter(Boolean)),
+  ].sort();
+
+  return <Editor post={data as Post} categories={categories} />;
 }

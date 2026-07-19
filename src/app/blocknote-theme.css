@@ -15,11 +15,15 @@
 }
 
 .bn-container {
+  --bn-font-family: var(--mono);
   background: transparent !important;
   font-family: var(--mono) !important;
   font-size: 0.9rem;
   line-height: 1.8;
   color: var(--text);
+}
+.bn-container * {
+  font-family: var(--mono) !important;
 }
 
 /* Padding trong panel (chừa lề cho block handle của BlockNote) */
@@ -93,17 +97,27 @@ html.light .bn-container code {
   color: #8a5800;
 }
 
-/* ── Code block ── giữ font mono, viền gọn */
+/* ── Code block ── hộp terminal như blog cũ (nền theo theme, giữ syntax màu của BlockNote) ── */
+.bn-container [data-content-type="codeBlock"],
+.bn-container [data-content-type="codeBlock"] pre {
+  background: #0d1117 !important;
+}
 .bn-container [data-content-type="codeBlock"] {
-  font-family: var(--mono) !important;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
-  font-size: 0.86rem;
+  font-size: 0.85rem;
+  padding: 6px 4px;
 }
 .bn-container [data-content-type="codeBlock"] code {
-  background: transparent;
-  color: inherit;
+  background: transparent !important;
   padding: 0;
+}
+html.light .bn-container [data-content-type="codeBlock"],
+html.light .bn-container [data-content-type="codeBlock"] pre {
+  background: #e8e0cc !important;
+}
+html.light .bn-container [data-content-type="codeBlock"] {
+  border-color: #c8bfaa;
 }
 
 /* Viewer (read-only): con trỏ mặc định */

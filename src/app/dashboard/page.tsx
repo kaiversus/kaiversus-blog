@@ -26,7 +26,7 @@ export default async function Dashboard() {
   const published = posts.filter((p) => p.status === "published");
 
   return (
-    <main className="container">
+    <main className="container admin">
       <div className="page-head">
         <div>
           <div className="page-title">// DASHBOARD</div>

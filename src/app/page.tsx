@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { CATEGORIES, type Post } from "@/lib/types";
+import { type Post } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
@@ -28,6 +28,15 @@ export default async function Home({
   const { data } = await query;
   const posts = (data ?? []) as Post[];
 
+  // Danh mục để filter — lấy từ các bài đã publish
+  const { data: catRows } = await supabase
+    .from("posts")
+    .select("category")
+    .eq("status", "published");
+  const categories = [
+    ...new Set((catRows ?? []).map((r) => r.category as string).filter(Boolean)),
+  ].sort();
+
   return (
     <main className="container">
       <div className="page-head">
@@ -39,16 +48,25 @@ export default async function Home({
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 28 }}>
-        <Link href="/" className="btn btn-ghost">
-          all
-        </Link>
-        {CATEGORIES.map((c) => (
-          <Link key={c.value} href={`/?category=${c.value}`} className="btn btn-ghost">
-            {c.label}
+      {categories.length > 0 && (
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 28 }}>
+          <Link
+            href="/"
+            className={`btn ${!category ? "btn-green" : "btn-ghost"}`}
+          >
+            all
           </Link>
-        ))}
-      </div>
+          {categories.map((c) => (
+            <Link
+              key={c}
+              href={`/?category=${encodeURIComponent(c)}`}
+              className={`btn ${category === c ? "btn-green" : "btn-ghost"}`}
+            >
+              {c}
+            </Link>
+          ))}
+        </div>
+      )}
 
       {posts.length === 0 ? (
         <div className="empty">
