@@ -108,10 +108,16 @@ export async function GET(req: Request) {
   ) {
     try {
       const editor = ServerBlockNoteEditor.create();
-      const raw = await fs.readFile(path.join(SRC, JOBS[0].file), "utf8");
+      const raw = await fs.readFile(
+        path.join(SRC, "_courses/malware/chapter_2a.md"),
+        "utf8",
+      );
       const { body } = parseFrontMatter(raw);
-      const blocks = await editor.tryParseMarkdownToBlocks(body);
-      return NextResponse.json({ probe: true, blocks: blocks.length });
+      const norm = body.replace(/\r\n/g, "\n");
+      const blocks = await editor.tryParseMarkdownToBlocks(norm);
+      const counts: Record<string, number> = {};
+      for (const b of blocks) counts[b.type] = (counts[b.type] || 0) + 1;
+      return NextResponse.json({ probe: true, total: blocks.length, counts });
     } catch (e) {
       return NextResponse.json({ probe: true, error: String(e) }, { status: 500 });
     }
@@ -128,20 +134,27 @@ export async function GET(req: Request) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  // Ghi vào DB cần auth (RLS chặn anon). Chạy từ dashboard đã đăng nhập.
   if (!user) {
     return NextResponse.json(
-      { error: "Chưa đăng nhập. Hãy login rồi mở lại URL này." },
+      { error: "Chưa đăng nhập. Hãy login rồi bấm nút trong dashboard." },
       { status: 401 },
     );
   }
 
+  // force=1: nhập lại, ghi đè content của các bài đã migrate (sửa bản hỏng CRLF)
+  const force = url.searchParams.get("force") === "1";
   const editor = ServerBlockNoteEditor.create();
   const uploaded = new Map<string, string>();
   const results: Record<string, unknown>[] = [];
 
   for (const job of JOBS) {
     try {
-      const raw = await fs.readFile(path.join(SRC, job.file), "utf8");
+      // Chuẩn hóa CRLF -> LF, nếu không parser bỏ qua code fence
+      const raw = (await fs.readFile(path.join(SRC, job.file), "utf8")).replace(
+        /\r\n/g,
+        "\n",
+      );
       const { data, body } = parseFrontMatter(raw);
       const title = data.title || path.basename(job.file, ".md");
       const slug = slugify(title);
@@ -151,7 +164,7 @@ export async function GET(req: Request) {
         .select("id")
         .eq("slug", slug)
         .maybeSingle();
-      if (exists) {
+      if (exists && !force) {
         results.push({ file: job.file, status: "skip (đã tồn tại)", slug });
         continue;
       }
@@ -166,6 +179,22 @@ export async function GET(req: Request) {
           .map((s) => s.trim())
           .filter(Boolean);
       }
+      const difficulty = data.difficulty ? data.difficulty.toLowerCase() : null;
+      const excerpt = data.description || null;
+
+      if (exists) {
+        // ghi đè lại content (và vài field parse) — giữ status/slug/ngày
+        const { error } = await supabase
+          .from("posts")
+          .update({ content: blocks, tags, difficulty, excerpt })
+          .eq("id", exists.id);
+        results.push(
+          error
+            ? { file: job.file, status: "error", error: error.message }
+            : { file: job.file, status: "updated", slug, blocks: blocks.length },
+        );
+        continue;
+      }
 
       const { error } = await supabase.from("posts").insert({
         title,
@@ -173,23 +202,17 @@ export async function GET(req: Request) {
         category: job.category,
         tags,
         status: "published",
-        difficulty: data.difficulty ? data.difficulty.toLowerCase() : null,
+        difficulty,
         content: blocks,
-        excerpt: data.description || null,
+        excerpt,
         author: data.author || "Kaiversus",
         published_at: toISO(data.date) ?? new Date().toISOString(),
       });
-      if (error) {
-        results.push({ file: job.file, status: "error", error: error.message });
-        continue;
-      }
-      results.push({
-        file: job.file,
-        status: "ok",
-        title,
-        slug,
-        blocks: blocks.length,
-      });
+      results.push(
+        error
+          ? { file: job.file, status: "error", error: error.message }
+          : { file: job.file, status: "ok", slug, blocks: blocks.length },
+      );
     } catch (e) {
       results.push({ file: job.file, status: "error", error: String(e) });
     }
@@ -197,6 +220,9 @@ export async function GET(req: Request) {
 
   for (const p of ["/", "/writeups", "/courses", "/projects", "/dashboard"])
     revalidatePath(p);
+  for (const r of results) {
+    if (typeof r.slug === "string") revalidatePath(`/p/${r.slug}`);
+  }
 
   return NextResponse.json({
     done: true,

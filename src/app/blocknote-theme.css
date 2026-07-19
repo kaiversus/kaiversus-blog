@@ -33,35 +33,52 @@
 
 /* ── Headings ── */
 .bn-container [data-content-type="heading"] {
-  font-family: var(--mono);
+  font-family: var(--mono) !important;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
-  color: #4ade80;
+  color: #4ade80 !important;
   margin-top: 2.2em;
   margin-bottom: 0.9em;
   scroll-margin-top: 110px;
 }
-html.light .bn-container [data-content-type="heading"] { color: #1e6e28; }
+html.light .bn-container [data-content-type="heading"] { color: #1e6e28 !important; }
 .bn-container [data-content-type="heading"][data-level="1"] {
-  font-size: 1.8rem;
+  font-size: 1.8rem !important;
 }
 .bn-container [data-content-type="heading"][data-level="2"] {
-  font-size: 1.5rem;
+  font-size: 1.5rem !important;
 }
 .bn-container [data-content-type="heading"][data-level="3"] {
-  color: #ffffff;
-  font-size: 1.2rem;
+  color: #ffffff !important;
+  font-size: 1.2rem !important;
   border-left: 3px solid #e8002a;
   padding-left: 14px;
 }
+/* Heading phụ (#### #####) — nhỏ, không in hoa, để không bị phóng to */
+.bn-container [data-content-type="heading"][data-level="4"] {
+  color: #ffaa00 !important;
+  font-size: 1rem !important;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.bn-container [data-content-type="heading"][data-level="5"],
+.bn-container [data-content-type="heading"][data-level="6"] {
+  color: var(--text-sub) !important;
+  font-size: 0.92rem !important;
+  text-transform: none;
+  letter-spacing: 0;
+}
 html.light .bn-container [data-content-type="heading"][data-level="1"],
 html.light .bn-container [data-content-type="heading"][data-level="2"] {
-  color: #1e6e28;
+  color: #1e6e28 !important;
 }
 html.light .bn-container [data-content-type="heading"][data-level="3"] {
-  color: #1c1a14;
+  color: #1c1a14 !important;
   border-left-color: #9e001c;
+}
+html.light .bn-container [data-content-type="heading"][data-level="4"] {
+  color: #cc7700 !important;
 }
 
 /* ── Links ── */

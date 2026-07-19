@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import "./legacy.css";
+import "@blocknote/core/style.css";
 import "./blocknote-theme.css";
 import Nav from "@/components/Nav";
 

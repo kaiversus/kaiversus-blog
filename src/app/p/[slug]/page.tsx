@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ServerBlockNoteEditor } from "@blocknote/server-util";
 import type { PartialBlock } from "@blocknote/core";
-import "@blocknote/core/style.css";
 import "highlight.js/styles/atom-one-dark.css";
 import { createPublicClient } from "@/lib/supabase/public";
 import type { Post } from "@/lib/types";
