@@ -5,12 +5,12 @@ import { ServerBlockNoteEditor } from "@blocknote/server-util";
 import type { PartialBlock } from "@blocknote/core";
 import "@blocknote/core/style.css";
 import "highlight.js/styles/atom-one-dark.css";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import type { Post } from "@/lib/types";
 import Toc from "@/components/Toc";
 import CodeEnhance from "@/components/CodeEnhance";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 120;
 
 const UUID =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -20,7 +20,7 @@ function fmt(d: string | null) {
 }
 
 async function getPost(slug: string): Promise<Post | null> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   let query = supabase.from("posts").select("*").eq("status", "published");
   query = UUID.test(slug) ? query.eq("id", slug) : query.eq("slug", slug);
   const { data } = await query.maybeSingle();

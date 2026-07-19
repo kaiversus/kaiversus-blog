@@ -1,8 +1,8 @@
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import CoursesBrowser, { type Group } from "@/components/CoursesBrowser";
 import "./courses.css";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 120;
 
 interface Row {
   id: string;
@@ -15,7 +15,7 @@ interface Row {
 }
 
 export default async function CoursesPage() {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("posts")
     .select("id,title,slug,category,difficulty,excerpt,published_at")

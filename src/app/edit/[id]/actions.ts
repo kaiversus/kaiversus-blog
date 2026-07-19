@@ -57,8 +57,8 @@ export async function savePost(id: string, patch: SavePatch) {
   const { error } = await supabase.from("posts").update(update).eq("id", id);
   if (error) return { ok: false, error: error.message };
 
-  revalidatePath("/");
-  revalidatePath("/dashboard");
+  for (const p of ["/", "/writeups", "/courses", "/projects", "/dashboard"])
+    revalidatePath(p);
   if (current?.slug) revalidatePath(`/p/${current.slug}`);
   return { ok: true };
 }
@@ -66,7 +66,7 @@ export async function savePost(id: string, patch: SavePatch) {
 export async function deletePost(id: string) {
   const supabase = await createClient();
   await supabase.from("posts").delete().eq("id", id);
-  revalidatePath("/");
-  revalidatePath("/dashboard");
+  for (const p of ["/", "/writeups", "/courses", "/projects", "/dashboard"])
+    revalidatePath(p);
   redirect("/dashboard");
 }

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { promises as fs } from "fs";
 import path from "path";
 import { ServerBlockNoteEditor } from "@blocknote/server-util";
@@ -193,6 +194,9 @@ export async function GET(req: Request) {
       results.push({ file: job.file, status: "error", error: String(e) });
     }
   }
+
+  for (const p of ["/", "/writeups", "/courses", "/projects", "/dashboard"])
+    revalidatePath(p);
 
   return NextResponse.json({
     done: true,

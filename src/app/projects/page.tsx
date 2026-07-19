@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import "./projects.css";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 120;
 
 interface Row {
   id: string;
@@ -13,7 +13,7 @@ interface Row {
 }
 
 export default async function ProjectsPage() {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("posts")
     .select("id,title,slug,excerpt,published_at")

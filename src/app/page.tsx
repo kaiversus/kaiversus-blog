@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import HomeFx from "@/components/HomeFx";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 120;
 
 interface Row {
   id: string;
@@ -14,7 +14,7 @@ interface Row {
 }
 
 export default async function Home() {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("posts")
     .select("id,title,slug,category,excerpt,published_at")

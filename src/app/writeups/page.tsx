@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import "./writeups.css";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 120;
 
 interface Row {
   id: string;
@@ -23,7 +23,7 @@ function tagClass(t: string) {
 }
 
 export default async function WriteupsPage() {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("posts")
     .select("id,title,slug,tags,excerpt,published_at")

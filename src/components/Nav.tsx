@@ -1,13 +1,9 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
 import ThemeToggle from "./ThemeToggle";
+import NavAuth from "./NavAuth";
 
-export default async function Nav() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+// Nav tĩnh (không đọc cookie) để trang công khai cache được.
+export default function Nav() {
   return (
     <nav>
       <Link href="/" className="nav-logo">
@@ -41,15 +37,7 @@ export default async function Nav() {
       </ul>
       <div className="nav-right">
         <span className="status-dot"></span>
-        {user ? (
-          <Link href="/dashboard" style={{ color: "inherit" }}>
-            dashboard
-          </Link>
-        ) : (
-          <Link href="/login" style={{ color: "inherit" }}>
-            online
-          </Link>
-        )}
+        <NavAuth />
         <ThemeToggle />
       </div>
     </nav>

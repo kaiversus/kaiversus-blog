@@ -25,5 +25,6 @@ export async function deletePost(formData: FormData) {
   const id = String(formData.get("id"));
   const supabase = await createClient();
   await supabase.from("posts").delete().eq("id", id);
-  revalidatePath("/dashboard");
+  for (const p of ["/", "/writeups", "/courses", "/projects", "/dashboard"])
+    revalidatePath(p);
 }
