@@ -1,0 +1,29 @@
+/* ============================================================
+   Tinh chỉnh BlockNote để editor và trang blog blend với theme
+   terminal của site. Áp cho MỌI .bn-container nên editor (lúc
+   viết) và viewer (trang blog) trông y hệt nhau.
+   ============================================================ */
+
+.bn-container {
+  background: transparent !important;
+  font-size: 1rem;
+}
+
+/* Code block / inline code dùng font mono cho khớp phong cách */
+.bn-container [data-content-type="codeBlock"],
+.bn-container [data-content-type="codeBlock"] *,
+.bn-container code {
+  font-family: var(--mono) !important;
+}
+
+/* Khung soạn thảo / đọc: bề rộng cột chữ dễ đọc, canh giữa */
+.doc-surface {
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+/* Viewer (read-only) bỏ con trỏ text để cảm giác là bài đọc */
+.post-view .bn-editor {
+  cursor: default;
+}

@@ -1,66 +1,74 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import { CATEGORIES, type Post } from "@/lib/types";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+function fmt(d: string | null) {
+  if (!d) return "";
+  return new Date(d).toISOString().slice(0, 10);
+}
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) {
+  const { category } = await searchParams;
+  const supabase = await createClient();
+
+  let query = supabase
+    .from("posts")
+    .select("*")
+    .eq("status", "published")
+    .order("published_at", { ascending: false });
+
+  if (category) query = query.eq("category", category);
+
+  const { data } = await query;
+  const posts = (data ?? []) as Post[];
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="container">
+      <div className="page-head">
+        <div>
+          <div className="page-title">// NOTEBOOK</div>
+          <div className="page-sub">
+            &gt; các bản ghi đã publish{category ? ` · filter: ${category}` : ""}
+          </div>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </div>
+
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 28 }}>
+        <Link href="/" className="btn btn-ghost">
+          all
+        </Link>
+        {CATEGORIES.map((c) => (
+          <Link key={c.value} href={`/?category=${c.value}`} className="btn btn-ghost">
+            {c.label}
+          </Link>
+        ))}
+      </div>
+
+      {posts.length === 0 ? (
+        <div className="empty">
+          Chưa có bài nào được publish. Vào <Link href="/dashboard" style={{ color: "var(--green)" }}>dashboard</Link> để viết.
         </div>
-      </main>
-    </div>
+      ) : (
+        <div className="post-grid">
+          {posts.map((p) => (
+            <Link key={p.id} href={`/p/${p.slug ?? p.id}`} className="post-card">
+              <div className="post-card-meta">
+                <span>{p.category}</span>
+                {p.difficulty && <span className="badge badge-published">{p.difficulty}</span>}
+                <span style={{ marginLeft: "auto" }}>{fmt(p.published_at)}</span>
+              </div>
+              <div className="post-card-title">{p.title}</div>
+              <div className="post-card-desc">{p.excerpt ?? ""}</div>
+            </Link>
+          ))}
+        </div>
+      )}
+    </main>
   );
 }
