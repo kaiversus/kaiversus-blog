@@ -97,28 +97,86 @@ html.light .bn-container code {
   color: #8a5800;
 }
 
-/* ── Code block ── hộp terminal như blog cũ (nền theo theme, giữ syntax màu của BlockNote) ── */
-.bn-container [data-content-type="codeBlock"],
-.bn-container [data-content-type="codeBlock"] pre {
-  background: #0d1117 !important;
-}
+/* ── Code block ── hộp terminal tối (luôn tối cả 2 theme, giống PDF/blog) ── */
 .bn-container [data-content-type="codeBlock"] {
+  position: relative;
+  background: #0d1117 !important;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   font-size: 0.85rem;
-  padding: 6px 4px;
+  margin: 1.6em 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.bn-container [data-content-type="codeBlock"] pre {
+  background: transparent !important;
+  margin: 0;
+  padding: 18px 20px;
+  overflow-x: auto;
 }
 .bn-container [data-content-type="codeBlock"] code {
   background: transparent !important;
+  color: #abb2bf;
+  padding: 0;
+  font-family: var(--mono) !important;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.bn-container [data-content-type="codeBlock"] code.hljs {
+  background: transparent;
   padding: 0;
 }
-html.light .bn-container [data-content-type="codeBlock"],
-html.light .bn-container [data-content-type="codeBlock"] pre {
-  background: #e8e0cc !important;
+
+/* Nút Copy trên code block (trang bài) */
+.post-view .copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #5c6370;
+  border: 1px solid #5c6370;
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-family: var(--mono);
+  cursor: pointer;
+  z-index: 5;
+  transition: 0.2s;
 }
-html.light .bn-container [data-content-type="codeBlock"] {
+.post-view .copy-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #abb2bf;
+  border-color: #abb2bf;
+}
+
+/* ── Tables ── giống blog cũ (nền tối, viền, header xanh) ── */
+.bn-container table {
+  border-collapse: collapse;
+  width: auto;
+  max-width: 100%;
+  margin: 1.6em 0;
+  font-family: var(--mono) !important;
+  font-size: 0.82rem;
+  background: rgba(5, 10, 20, 0.5);
+}
+.bn-container th,
+.bn-container td {
+  border: 1px solid var(--border);
+  padding: 9px 13px;
+  text-align: left;
+  vertical-align: top;
+}
+.bn-container th {
+  background: rgba(63, 185, 80, 0.08);
+  color: #3fb950;
+  font-weight: 700;
+}
+html.light .bn-container table { background: #f0e9d8; }
+html.light .bn-container th {
+  background: #ddd8c4;
+  color: #1e6e28;
   border-color: #c8bfaa;
 }
+html.light .bn-container td { border-color: #c8bfaa; }
 
 /* Viewer (read-only) trên trang blog: KHÔNG bọc hộp, nội dung chảy sát header
    như writeup cũ (bỏ padding trong của BlockNote) */

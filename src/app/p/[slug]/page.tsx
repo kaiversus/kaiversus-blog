@@ -1,11 +1,14 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ServerBlockNoteEditor } from "@blocknote/server-util";
 import type { PartialBlock } from "@blocknote/core";
+import "@blocknote/core/style.css";
+import "highlight.js/styles/atom-one-dark.css";
 import { createClient } from "@/lib/supabase/server";
 import type { Post } from "@/lib/types";
-import PostView from "@/components/PostView";
 import Toc from "@/components/Toc";
+import CodeEnhance from "@/components/CodeEnhance";
 
 export const dynamic = "force-dynamic";
 
@@ -47,6 +50,11 @@ export default async function PostPage({
   const post = await getPost(slug);
   if (!post) notFound();
 
+  const server = ServerBlockNoteEditor.create();
+  const html = await server.blocksToFullHTML(
+    (post.content as PartialBlock[]) ?? [],
+  );
+
   const backHref =
     post.category === "writeup"
       ? "/writeups"
@@ -62,7 +70,7 @@ export default async function PostPage({
 
   return (
     <div className="writeup-container">
-      <article className="writeup-content">
+      <article className="wc-main">
         <div className="writeup-header">
           <div className="terminal-prompt">
             <span style={{ color: "#4ade80" }}>
@@ -86,7 +94,12 @@ export default async function PostPage({
           </div>
         </div>
 
-        <PostView content={(post.content as PartialBlock[]) ?? []} />
+        <div
+          className="bn-container post-view"
+          id="post-content"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+        <CodeEnhance />
 
         <div
           style={{

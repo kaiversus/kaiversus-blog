@@ -126,6 +126,8 @@ a {
   color: var(--text-muted);
   letter-spacing: 0.04em;
 }
+/* Cột nội dung bài (thay .writeup-content để tránh đè CSS legacy lên .bn-container) */
+.wc-main { flex: 1 1 0; min-width: 0; }
 
 /* ── Buttons: .btn/.btn-green/.btn-ghost do legacy.css lo; chỉ thêm biến thể ── */
 .btn-danger:hover { border-color: var(--red) !important; color: var(--red) !important; }

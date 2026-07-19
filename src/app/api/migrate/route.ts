@@ -110,11 +110,7 @@ export async function GET(req: Request) {
       const raw = await fs.readFile(path.join(SRC, JOBS[0].file), "utf8");
       const { body } = parseFrontMatter(raw);
       const blocks = await editor.tryParseMarkdownToBlocks(body);
-      return NextResponse.json({
-        probe: true,
-        blocks: blocks.length,
-        types: [...new Set(blocks.map((b) => b.type))],
-      });
+      return NextResponse.json({ probe: true, blocks: blocks.length });
     } catch (e) {
       return NextResponse.json({ probe: true, error: String(e) }, { status: 500 });
     }
