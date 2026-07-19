@@ -9,14 +9,14 @@ export default async function Nav() {
   } = await supabase.auth.getUser();
 
   return (
-    <nav className="site-nav">
+    <nav>
       <Link href="/" className="nav-logo">
-        <span className="u">kaiversus</span>
-        <span className="at">@</span>
-        <span className="h">notebook</span>
-        <span className="s">:~$</span>
+        <span className="nav-logo-user">kaiversus</span>
+        <span className="nav-logo-at">@</span>
+        <span className="nav-logo-host">blog</span>
+        <span className="nav-logo-sym">:~$</span>
       </Link>
-
+      <div className="nav-sep"></div>
       <ul className="nav-links">
         <li>
           <Link href="/">
@@ -24,24 +24,31 @@ export default async function Nav() {
           </Link>
         </li>
         <li>
-          <Link href="/?category=writeup">
+          <Link href="/writeups">
             <span className="slash">~/</span>writeups
           </Link>
         </li>
         <li>
-          <Link href="/?category=malware">
+          <Link href="/courses">
             <span className="slash">~/</span>courses
           </Link>
         </li>
+        <li>
+          <Link href="/projects">
+            <span className="slash">~/</span>projects
+          </Link>
+        </li>
       </ul>
-
       <div className="nav-right">
+        <span className="status-dot"></span>
         {user ? (
-          <Link href="/dashboard" className="nav-links">
-            <span style={{ color: "var(--green)" }}>● </span>dashboard
+          <Link href="/dashboard" style={{ color: "inherit" }}>
+            dashboard
           </Link>
         ) : (
-          <Link href="/login">login</Link>
+          <Link href="/login" style={{ color: "inherit" }}>
+            online
+          </Link>
         )}
         <ThemeToggle />
       </div>

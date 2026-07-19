@@ -91,69 +91,7 @@ a {
   border-radius: 4px;
 }
 
-/* ── Nav ── */
-nav.site-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  height: 62px;
-  padding: 0 clamp(16px, 4vw, 40px);
-  background: color-mix(in srgb, var(--bg) 96%, transparent);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--green-glow);
-}
-
-.nav-logo {
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-}
-.nav-logo .u { color: var(--green); }
-.nav-logo .at { color: var(--text-muted); }
-.nav-logo .h { color: var(--text); }
-.nav-logo .s { color: var(--text-muted); }
-
-.nav-links {
-  display: flex;
-  gap: 18px;
-  list-style: none;
-  margin-left: 8px;
-  font-size: 0.85rem;
-}
-.nav-links a {
-  color: var(--text-sub);
-  transition: color 0.18s;
-}
-.nav-links a:hover { color: var(--green); }
-.nav-links .slash { color: var(--text-faint); }
-
-.nav-right {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.theme-toggle {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text-sub);
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius);
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: border-color 0.18s, color 0.18s;
-}
-.theme-toggle:hover {
-  border-color: var(--green);
-  color: var(--green);
-}
+/* Nav / footer / .btn / .theme-toggle: do legacy.css lo (giống site cũ) */
 
 /* ── Layout containers ── */
 .container {
@@ -182,30 +120,8 @@ nav.site-nav {
   color: var(--text-muted);
 }
 
-/* ── Buttons ── */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 16px;
-  border-radius: var(--radius);
-  font-family: var(--mono);
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  border: 1px solid var(--border);
-  background: var(--bg-card);
-  color: var(--text);
-  transition: border-color 0.18s, background 0.18s, transform 0.12s;
-}
-.btn:hover { border-color: var(--green); transform: translateY(-1px); }
-.btn-green {
-  background: var(--green-dim);
-  border-color: var(--green);
-  color: var(--green);
-}
-.btn-ghost { background: transparent; }
-.btn-danger:hover { border-color: var(--red); color: var(--red); }
+/* ── Buttons: .btn/.btn-green/.btn-ghost do legacy.css lo; chỉ thêm biến thể ── */
+.btn-danger:hover { border-color: var(--red) !important; color: var(--red) !important; }
 
 /* ── Post list / cards ── */
 .post-grid {
@@ -298,18 +214,7 @@ select.txt:focus {
   font-size: 0.85rem;
 }
 
-/* ── Footer ── */
-footer.site-footer {
-  border-top: 1px solid var(--border);
-  padding: 28px clamp(16px, 4vw, 40px);
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  font-size: 0.78rem;
-  color: var(--text-muted);
-}
-footer.site-footer strong { color: var(--text); }
+/* Footer do legacy.css lo */
 
 /* ============================================================
    Bố cục đọc/soạn 2 cột: nội dung + TOC bên phải (giống blog cũ)
@@ -385,17 +290,17 @@ html.light .toc-link.active { color: #1e6e28; }
 /* ============================================================
    Editor full-screen (trang /edit)
    ============================================================ */
-body.editing footer.site-footer { display: none; }
+body.editing footer { display: none; }
 
 .editor-shell {
-  min-height: calc(100vh - 62px);
+  min-height: calc(100vh - 65px);
   display: flex;
   flex-direction: column;
 }
 
 .editor-bar {
   position: sticky;
-  top: 62px;
+  top: 65px;
   z-index: 50;
   display: flex;
   align-items: center;

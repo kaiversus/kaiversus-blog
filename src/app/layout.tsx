@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
+import "./legacy.css";
 import "./blocknote-theme.css";
 import Nav from "@/components/Nav";
 
@@ -44,11 +45,19 @@ export default function RootLayout({
       <body>
         <Nav />
         {children}
-        <footer className="site-footer">
-          <div>
-            <strong>kaiversus</strong> — Dinh Thien Bao · 52Hz
+        <footer>
+          <div className="footer-brand">
+            <strong>kaiversus</strong>
+            <span style={{ color: "var(--text-faint)" }}>—</span>
+            <span>Dinh Thien Bao · 52Hz</span>
           </div>
-          <div>notebook v0 · built with next + supabase</div>
+          <div className="footer-links">
+            <a href="https://github.com/kaiversus" target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+            <a href="#">CTFtime</a>
+            <a href="#">RSS</a>
+          </div>
         </footer>
       </body>
     </html>

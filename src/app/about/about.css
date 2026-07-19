@@ -1,0 +1,46 @@
+/* About page — ported từ about.md (bổ sung style cho các class site cũ thiếu) */
+.about-page {
+  --primary: var(--green);
+  --accent: var(--amber);
+  font-family: "JetBrains Mono", "Courier New", monospace;
+}
+.about-page .container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.about-page .card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.about-page .space-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.about-page .space-card:hover {
+  border-color: var(--green);
+  transform: translateY(-3px);
+}
+.about-page .text-gold {
+  color: var(--amber);
+  margin-bottom: 14px;
+}
+.about-page .btn-space {
+  display: inline-block;
+  padding: 12px 28px;
+  border: 1px solid var(--green);
+  color: var(--green);
+  border-radius: 4px;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  transition: background 0.2s, color 0.2s;
+}
+.about-page .btn-space:hover {
+  background: var(--green);
+  color: var(--bg);
+}
+.about-page img[alt] { vertical-align: middle; }
