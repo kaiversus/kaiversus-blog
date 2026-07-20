@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Newsreader } from "next/font/google";
+import { JetBrains_Mono, Newsreader, Inter } from "next/font/google";
 import "./globals.css";
 import "./legacy.css";
 import "@blocknote/core/style.css";
@@ -15,6 +15,13 @@ const mono = JetBrains_Mono({
 const serif = Newsreader({
   variable: "--font-serif",
   subsets: ["latin"],
+});
+
+// Font đọc kiểu Notion — mượt, có tiếng Việt
+const sans = Inter({
+  variable: "--font-sans",
+  subsets: ["latin", "vietnamese"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -37,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${mono.variable} ${serif.variable}`}
+      className={`${mono.variable} ${serif.variable} ${sans.variable}`}
       suppressHydrationWarning
     >
       <head>

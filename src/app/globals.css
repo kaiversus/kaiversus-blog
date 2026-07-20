@@ -23,6 +23,9 @@
   --mono: "JetBrains Mono", "Courier New", monospace;
   --serif: "Newsreader", Georgia, serif;
   --ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Font đọc nội dung kiểu Notion */
+  --sans: var(--font-sans), "Inter", system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", sans-serif;
 
   --radius: 6px;
   --content-width: 820px;
