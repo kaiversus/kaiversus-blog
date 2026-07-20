@@ -499,9 +499,10 @@ body.editing footer { display: none; }
 .bn-inline-equation {
   display: inline-block;
   padding: 0 1px;
+  vertical-align: middle;
 }
 .bn-inline-equation .katex {
-  font-size: 1em;
+  font-size: 1.2em;
 }
 
 /* ============================================================
