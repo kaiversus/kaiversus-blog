@@ -6,6 +6,7 @@ import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import type { PartialBlock } from "@blocknote/core";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { useSiteTheme } from "@/lib/useSiteTheme";
 import Toc from "@/components/Toc";
@@ -34,23 +35,33 @@ function deriveExcerpt(blocks: PartialBlock[]): string | null {
 export default function Editor({
   post,
   categories = [],
+  authors = [],
 }: {
   post: Post;
   categories?: string[];
+  authors?: string[];
 }) {
   const theme = useSiteTheme();
+  const router = useRouter();
   const [title, setTitle] = useState(post.title);
   const [category, setCategory] = useState<PostCategory>(post.category);
   const [tags, setTags] = useState((post.tags ?? []).join(", "));
   const [difficulty, setDifficulty] = useState(post.difficulty ?? "");
+  const [author, setAuthor] = useState(post.author ?? authors[0] ?? "");
   const [cover, setCover] = useState(post.cover ?? "");
   const [github, setGithub] = useState(post.github_url ?? "");
   const [demo, setDemo] = useState(post.demo_url ?? "");
   const [uploadingCover, setUploadingCover] = useState(false);
   const [status, setStatus] = useState(post.status);
   const [save, setSave] = useState<SaveState>("idle");
+  const [dirty, setDirty] = useState(false);
   const [confirmDel, setConfirmDel] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const authorOptions = useMemo(
+    () => [...new Set([...(author ? [author] : []), ...authors])],
+    [author, authors],
+  );
 
   const catOptions = useMemo(() => {
     const defaults = CATEGORIES.map((c) => c.value);
@@ -110,6 +121,7 @@ export default function Editor({
         difficulty: difficulty || null,
         status: nextStatus ?? status,
         excerpt: deriveExcerpt(content),
+        author: author.trim() || null,
         cover: cover.trim() || null,
         github_url: github.trim() || null,
         demo_url: demo.trim() || null,
@@ -117,11 +129,13 @@ export default function Editor({
       };
       const res = await savePost(post.id, patch);
       setSave(res.ok ? "saved" : "error");
+      if (res.ok) setDirty(false);
     },
-    [editor, title, category, tags, difficulty, cover, github, demo, status, post.id],
+    [editor, title, category, tags, difficulty, author, cover, github, demo, status, post.id],
   );
 
   const schedule = useCallback(() => {
+    setDirty(true);
     setSave("saving");
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(() => runSave(), 1200);
@@ -133,10 +147,38 @@ export default function Editor({
     };
   }, []);
 
+  // Cảnh báo khi rời trang mà còn thay đổi chưa lưu ("hỏi lại có muốn lưu")
+  useEffect(() => {
+    const warn = (e: BeforeUnloadEvent) => {
+      if (dirty || save === "saving") {
+        e.preventDefault();
+        e.returnValue = "";
+      }
+    };
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [dirty, save]);
+
   async function togglePublish() {
     const next = status === "published" ? "draft" : "published";
+    if (next === "published" && !author.trim()) {
+      window.alert("Cần chọn Tác giả trước khi publish.");
+      return;
+    }
     setStatus(next);
     await runSave(next);
+  }
+
+  // Rời editor: nếu còn thay đổi chưa lưu thì HỎI có muốn lưu không
+  async function goDashboard(e: React.MouseEvent) {
+    e.preventDefault();
+    if (dirty || save === "saving") {
+      const ok = window.confirm(
+        "Bạn có thay đổi chưa lưu.\n\nOK = Lưu rồi thoát   ·   Cancel = Thoát KHÔNG lưu",
+      );
+      if (ok) await runSave();
+    }
+    router.push("/dashboard");
   }
 
   const saveLabel =
@@ -151,9 +193,16 @@ export default function Editor({
   return (
     <div className="editor-shell">
       <div className="editor-bar">
-        <Link href="/dashboard" className="btn btn-ghost">
+        <Link href="/dashboard" className="btn btn-ghost" onClick={goDashboard}>
           ← dashboard
         </Link>
+        <button
+          className="btn btn-ghost"
+          onClick={() => runSave()}
+          disabled={!dirty && save !== "error"}
+        >
+          💾 lưu
+        </button>
         <span className={`save-pill ${save}`}>{saveLabel}</span>
 
         <div className="spacer" />
@@ -169,7 +218,7 @@ export default function Editor({
             className="btn del-btn confirm"
             onClick={() => deletePost(post.id)}
           >
-            chắc chưa? xoá luôn
+            chắc chưa? vào thùng rác
           </button>
         ) : (
           <button
@@ -238,6 +287,25 @@ export default function Editor({
               <option value="basic">basic</option>
               <option value="intermediate">intermediate</option>
               <option value="advanced">advanced</option>
+            </select>
+            <select
+              className={`txt author-select ${author ? "" : "required-empty"}`}
+              value={author}
+              onChange={(e) => {
+                setAuthor(e.target.value);
+                schedule();
+              }}
+              required
+              title="Tác giả (bắt buộc)"
+            >
+              <option value="" disabled>
+                — tác giả * —
+              </option>
+              {authorOptions.map((a) => (
+                <option key={a} value={a}>
+                  {a}
+                </option>
+              ))}
             </select>
             <input
               className="txt tags"

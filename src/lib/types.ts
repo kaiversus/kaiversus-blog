@@ -17,6 +17,8 @@ export interface Post {
   content: unknown; // BlockNote PartialBlock[]
   excerpt: string | null;
   author: string | null;
+  views: number;
+  deleted_at: string | null;
   created_at: string;
   updated_at: string;
   published_at: string | null;

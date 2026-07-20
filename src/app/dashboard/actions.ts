@@ -23,10 +23,34 @@ export async function createPost(formData?: FormData) {
   redirect(`/edit/${data.id}`);
 }
 
+function revalidateAll() {
+  for (const p of ["/", "/writeups", "/courses", "/projects", "/dashboard"])
+    revalidatePath(p);
+}
+
+// Soft delete: đưa vào thùng rác (không xóa khỏi DB) + ẩn khỏi công khai
 export async function deletePost(formData: FormData) {
   const id = String(formData.get("id"));
   const supabase = await createClient();
+  await supabase
+    .from("posts")
+    .update({ deleted_at: new Date().toISOString(), status: "draft" })
+    .eq("id", id);
+  revalidateAll();
+}
+
+// Khôi phục từ thùng rác (về draft)
+export async function restorePost(formData: FormData) {
+  const id = String(formData.get("id"));
+  const supabase = await createClient();
+  await supabase.from("posts").update({ deleted_at: null }).eq("id", id);
+  revalidateAll();
+}
+
+// Xóa VĨNH VIỄN khỏi DB (chỉ dùng trong thùng rác)
+export async function hardDeletePost(formData: FormData) {
+  const id = String(formData.get("id"));
+  const supabase = await createClient();
   await supabase.from("posts").delete().eq("id", id);
-  for (const p of ["/", "/writeups", "/courses", "/projects", "/dashboard"])
-    revalidatePath(p);
+  revalidateAll();
 }

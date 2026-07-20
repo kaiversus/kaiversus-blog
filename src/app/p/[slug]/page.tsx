@@ -8,6 +8,7 @@ import { createPublicClient } from "@/lib/supabase/public";
 import type { Post } from "@/lib/types";
 import Toc from "@/components/Toc";
 import CodeEnhance from "@/components/CodeEnhance";
+import ViewTracker from "@/components/ViewTracker";
 
 export const revalidate = 120;
 
@@ -172,6 +173,7 @@ export default async function PostPage({
           dangerouslySetInnerHTML={{ __html: mergeFirstColRowspans(html) }}
         />
         <CodeEnhance />
+        <ViewTracker id={post.id} />
 
         <div className="post-back">
           <Link href={backHref}>[ cd .. ] {backLabel}</Link>

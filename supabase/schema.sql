@@ -20,6 +20,8 @@ create table if not exists public.posts (
   content      jsonb       not null default '[]'::jsonb, -- nội dung block của BlockNote
   excerpt      text,
   author       text,
+  views        int         not null default 0,      -- lượt xem (chỉ admin thấy)
+  deleted_at   timestamptz,                          -- soft delete: có giá trị = trong thùng rác
   created_at   timestamptz not null default now(),
   updated_at   timestamptz not null default now(),
   published_at timestamptz

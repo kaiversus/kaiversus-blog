@@ -443,6 +443,33 @@ body.editing footer { display: none; }
   .new-course .txt { flex: 1; }
 }
 
+/* Thanh lọc bài trong dashboard */
+.dash-filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  font-family: var(--ui);
+}
+.dash-filters .txt {
+  font-family: var(--ui);
+  font-size: 0.8rem;
+  padding: 7px 11px;
+  border-radius: 8px;
+}
+.dash-filters .txt:first-child { flex: 1; min-width: 180px; }
+.dash-filters .btn { font-family: var(--ui); font-size: 0.78rem; }
+@media (max-width: 620px) {
+  .dash-filters .txt:first-child { min-width: 100%; }
+}
+
+/* Ô chọn tác giả bắt buộc — viền đỏ khi chưa chọn */
+.author-select.required-empty {
+  border-color: var(--red);
+  color: var(--text-muted);
+}
+
 /* Nút xoá 2 bước */
 .del-btn.confirm {
   border-color: var(--red);

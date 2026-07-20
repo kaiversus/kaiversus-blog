@@ -16,9 +16,13 @@ const EditorClient = dynamic(() => import("./EditorClient"), {
 export default function Editor({
   post,
   categories,
+  authors,
 }: {
   post: Post;
   categories: string[];
+  authors: string[];
 }) {
-  return <EditorClient post={post} categories={categories} />;
+  return (
+    <EditorClient post={post} categories={categories} authors={authors} />
+  );
 }

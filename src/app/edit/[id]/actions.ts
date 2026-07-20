@@ -23,6 +23,7 @@ export interface SavePatch {
   difficulty: string | null;
   status: PostStatus;
   excerpt: string | null;
+  author: string | null;
   cover: string | null;
   github_url: string | null;
   demo_url: string | null;
@@ -45,6 +46,7 @@ export async function savePost(id: string, patch: SavePatch) {
     difficulty: patch.difficulty,
     status: patch.status,
     excerpt: patch.excerpt,
+    author: patch.author,
     cover: patch.cover,
     github_url: patch.github_url,
     demo_url: patch.demo_url,
@@ -69,9 +71,14 @@ export async function savePost(id: string, patch: SavePatch) {
   return { ok: true };
 }
 
+// Soft delete: KHÔNG xóa khỏi DB — chỉ đưa vào thùng rác (deleted_at) + ẩn
+// khỏi công khai (status=draft). Có thể khôi phục lại trong dashboard.
 export async function deletePost(id: string) {
   const supabase = await createClient();
-  await supabase.from("posts").delete().eq("id", id);
+  await supabase
+    .from("posts")
+    .update({ deleted_at: new Date().toISOString(), status: "draft" })
+    .eq("id", id);
   for (const p of ["/", "/writeups", "/courses", "/projects", "/dashboard"])
     revalidatePath(p);
   redirect("/dashboard");
