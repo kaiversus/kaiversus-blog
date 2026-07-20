@@ -431,38 +431,6 @@ body.editing footer { display: none; }
   margin: 0 0 32px;
 }
 
-/* Author bio — cuối bài, giống mục "Author Bio" trong bố cục */
-.author-bio {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-top: 28px;
-  padding: 16px 20px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--green);
-  border-radius: 8px;
-}
-.author-avatar {
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  border-radius: 8px;
-  background: var(--green-dim);
-  color: var(--green);
-  font-weight: 800;
-  font-size: 1.2rem;
-}
-.author-name {
-  font-weight: 700;
-  color: var(--green);
-  font-size: 0.9rem;
-  margin-bottom: 3px;
-}
-.author-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; }
-
 /* Nút DEMO / REPO ở header bài project */
 .post-links { display: flex; gap: 10px; margin-top: 14px; }
 .post-links a {

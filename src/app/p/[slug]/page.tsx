@@ -18,6 +18,60 @@ function fmt(d: string | null) {
   return d ? new Date(d).toISOString().slice(0, 10) : "";
 }
 
+// Bảng nhập từ markdown lưu mỗi ô riêng lẻ (không gộp được). Với cột ĐẦU TIÊN,
+// gộp các ô trống liên tiếp vào ô có nội dung phía trên bằng rowspan — để "số
+// thứ tự" hiện thành 1 ô kéo dài như bảng thường.
+function mergeFirstColRowspans(html: string): string {
+  const rowRe = /<tr\b[^>]*>[\s\S]*?<\/tr>/g;
+  const cellRe = /<(td|th)\b[^>]*>[\s\S]*?<\/\1>/g;
+  const isEmpty = (cell: string) =>
+    cell
+      .replace(/^<t[dh]\b[^>]*>/, "")
+      .replace(/<\/t[dh]>$/, "")
+      .replace(/<[^>]+>/g, "")
+      .trim() === "";
+
+  return html.replace(/<table\b[^>]*>[\s\S]*?<\/table>/g, (table) => {
+    const rows = table.match(rowRe);
+    if (!rows) return table;
+
+    const parsed = rows.map((row) => ({
+      row,
+      open: row.match(/<tr\b[^>]*>/)![0],
+      cells: row.match(cellRe) ?? [],
+      isHeader: /<th\b/.test(row),
+    }));
+
+    let ownerIdx = -1;
+    for (let i = 0; i < parsed.length; i++) {
+      const p = parsed[i];
+      if (p.isHeader || p.cells.length === 0) {
+        ownerIdx = -1;
+        continue;
+      }
+      const first = p.cells[0] ?? "";
+      const owner = ownerIdx >= 0 ? parsed[ownerIdx] : undefined;
+      if (owner && owner.cells[0] && isEmpty(first)) {
+        p.cells[0] = ""; // bỏ ô trống ở cột đầu của hàng này
+        owner.cells[0] = /rowspan="\d+"/.test(owner.cells[0])
+          ? owner.cells[0].replace(
+              /rowspan="(\d+)"/,
+              (_m, n) => `rowspan="${parseInt(n, 10) + 1}"`,
+            )
+          : owner.cells[0].replace(/^<td\b/, '<td rowspan="2"');
+      } else {
+        ownerIdx = i;
+      }
+    }
+
+    let idx = 0;
+    return table.replace(rowRe, () => {
+      const p = parsed[idx++];
+      return p.cells.length ? `${p.open}${p.cells.join("")}</tr>` : p.row;
+    });
+  });
+}
+
 async function getPost(slug: string): Promise<Post | null> {
   const supabase = createPublicClient();
   let query = supabase.from("posts").select("*").eq("status", "published");
@@ -115,22 +169,9 @@ export default async function PostPage({
         <div
           className="bn-container post-view"
           id="post-content"
-          dangerouslySetInnerHTML={{ __html: html }}
+          dangerouslySetInnerHTML={{ __html: mergeFirstColRowspans(html) }}
         />
         <CodeEnhance />
-
-        <div className="author-bio">
-          <div className="author-avatar">
-            {(post.author ?? "K").charAt(0).toUpperCase()}
-          </div>
-          <div className="author-body">
-            <div className="author-name">{post.author ?? "Kaiversus"}</div>
-            <div className="author-desc">
-              Đinh Thiên Bảo — sinh viên An toàn thông tin @ HCMUTE. Malware
-              analysis, reverse engineering &amp; CTF.
-            </div>
-          </div>
-        </div>
 
         <div className="post-back">
           <Link href={backHref}>[ cd .. ] {backLabel}</Link>

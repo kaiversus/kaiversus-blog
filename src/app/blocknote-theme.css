@@ -111,6 +111,17 @@ html.light .bn-container a:hover {
   background: rgba(30, 110, 40, 0.08);
 }
 
+/* ── Chữ in đậm ── tô màu để nổi bật giữa đoạn (dễ đọc, thấy được từ khóa) */
+.bn-container strong,
+.bn-container b {
+  color: #ffca6b !important;
+  font-weight: 700;
+}
+html.light .bn-container strong,
+html.light .bn-container b {
+  color: #a85e00 !important;
+}
+
 /* ── Inline code ── */
 .bn-container code {
   background: #21262d;
@@ -197,6 +208,12 @@ html.light .bn-container code {
   min-width: 84px;
   text-align: left;
   vertical-align: top;
+}
+/* Ô cột đầu đã gộp (rowspan) — căn giữa cho số thứ tự */
+.bn-container td[rowspan]:first-child {
+  vertical-align: middle;
+  text-align: center;
+  background: rgba(63, 185, 80, 0.04);
 }
 .bn-container th {
   background: rgba(63, 185, 80, 0.08);
