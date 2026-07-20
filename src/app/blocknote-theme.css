@@ -323,6 +323,24 @@ html.light .bn-container td { border-color: #c8bfaa; }
   border-top: 1px dashed var(--border);
 }
 
+/* Chip cho block equation còn trống (bấm để nhập) */
+.bn-eq-block-empty {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px;
+  font-size: 0.85rem;
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 7%, transparent);
+  border: 1px dashed color-mix(in srgb, var(--green) 40%, transparent);
+  border-radius: 10px;
+}
+.bn-eq-block-empty:hover {
+  background: color-mix(in srgb, var(--green) 12%, transparent);
+}
+
 /* Con trỏ tay cho equation trong editor (bấm để sửa) */
 .bn-container .bn-equation-block {
   cursor: pointer;

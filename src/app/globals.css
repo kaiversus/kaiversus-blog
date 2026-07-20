@@ -484,11 +484,16 @@ body.editing footer { display: none; }
   display: block;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 6px 2px;
+  padding: 14px 2px;
+  margin: 0.4em 0;
   text-align: center;
 }
 .bn-equation-block .katex-display {
-  margin: 0.2em 0;
+  margin: 0;
+}
+/* Block equation làm trọng tâm: chữ to hơn, căn giữa */
+.bn-equation-block .katex {
+  font-size: 1.45em;
 }
 .bn-inline-equation {
   display: inline-block;

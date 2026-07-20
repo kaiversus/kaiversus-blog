@@ -109,6 +109,21 @@ function EquationBlockView({
     );
   }
 
+  if (!latex) {
+    return (
+      <div
+        className="bn-eq-block-empty"
+        contentEditable={false}
+        onClick={() => {
+          setDraft("");
+          setEditing(true);
+        }}
+      >
+        ∑ Bấm để nhập công thức
+      </div>
+    );
+  }
+
   return (
     <div
       className="bn-equation-block"
