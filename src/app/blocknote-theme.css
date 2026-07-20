@@ -49,8 +49,8 @@
   letter-spacing: 1px;
   font-weight: 700;
   color: #4ade80 !important;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
+  margin-top: 0.9em;
+  margin-bottom: 0.2em;
   scroll-margin-top: 110px;
 }
 html.light .bn-container [data-content-type="heading"] { color: #1e6e28 !important; }
