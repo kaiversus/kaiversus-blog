@@ -386,6 +386,13 @@ body.editing footer { display: none; }
 .doc-meta-row .txt.tags { flex: 1; min-width: 160px; }
 
 /* Hàng ảnh bìa + link (github/demo) trong editor */
+.doc-project-label {
+  font-family: var(--ui);
+  font-size: 0.72rem;
+  color: var(--green);
+  letter-spacing: 0.02em;
+  margin: 6px 0 2px;
+}
 .doc-extra-row { align-items: center; }
 .doc-extra-row .cover-url { flex: 1; min-width: 180px; }
 .cover-preview {

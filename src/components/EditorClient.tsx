@@ -321,48 +321,55 @@ export default function Editor({
             />
           </div>
 
-          <div className="doc-meta-row doc-extra-row">
-            {cover && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img className="cover-preview" src={cover} alt="cover" />
-            )}
-            <input
-              className="txt cover-url"
-              placeholder="ảnh bìa / thumbnail (URL)"
-              value={cover}
-              onChange={(e) => {
-                setCover(e.target.value);
-                schedule();
-              }}
-            />
-            <label className="btn btn-ghost cover-upload">
-              {uploadingCover ? "đang tải…" : "⬆ ảnh"}
-              <input
-                type="file"
-                accept="image/*"
-                hidden
-                onChange={onCoverFile}
-              />
-            </label>
-            <input
-              className="txt"
-              placeholder="github repo URL"
-              value={github}
-              onChange={(e) => {
-                setGithub(e.target.value);
-                schedule();
-              }}
-            />
-            <input
-              className="txt"
-              placeholder="demo URL"
-              value={demo}
-              onChange={(e) => {
-                setDemo(e.target.value);
-                schedule();
-              }}
-            />
-          </div>
+          {category === "project" && (
+            <>
+              <div className="doc-project-label">
+                ⌘ Thông tin project (thumbnail + link) — chỉ hiện với project
+              </div>
+              <div className="doc-meta-row doc-extra-row">
+                {cover && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img className="cover-preview" src={cover} alt="cover" />
+                )}
+                <input
+                  className="txt cover-url"
+                  placeholder="ảnh bìa / thumbnail (URL)"
+                  value={cover}
+                  onChange={(e) => {
+                    setCover(e.target.value);
+                    schedule();
+                  }}
+                />
+                <label className="btn btn-ghost cover-upload">
+                  {uploadingCover ? "đang tải…" : "⬆ ảnh"}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    hidden
+                    onChange={onCoverFile}
+                  />
+                </label>
+                <input
+                  className="txt"
+                  placeholder="github repo URL"
+                  value={github}
+                  onChange={(e) => {
+                    setGithub(e.target.value);
+                    schedule();
+                  }}
+                />
+                <input
+                  className="txt"
+                  placeholder="demo URL"
+                  value={demo}
+                  onChange={(e) => {
+                    setDemo(e.target.value);
+                    schedule();
+                  }}
+                />
+              </div>
+            </>
+          )}
 
           <div id="edit-content">
             <BlockNoteView
