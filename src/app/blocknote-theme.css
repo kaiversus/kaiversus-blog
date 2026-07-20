@@ -38,8 +38,8 @@
   letter-spacing: 1px;
   font-weight: 700;
   color: #4ade80 !important;
-  margin-top: 2.2em;
-  margin-bottom: 0.9em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
   scroll-margin-top: 110px;
 }
 html.light .bn-container [data-content-type="heading"] { color: #1e6e28 !important; }
@@ -121,7 +121,7 @@ html.light .bn-container code {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   font-size: 0.85rem;
-  margin: 1.6em 0;
+  margin: 1.1em 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 .bn-container [data-content-type="codeBlock"] pre {
@@ -170,7 +170,7 @@ html.light .bn-container code {
   border-collapse: collapse;
   width: auto;
   max-width: 100%;
-  margin: 1.6em 0;
+  margin: 1.1em 0;
   font-family: var(--mono) !important;
   font-size: 0.82rem;
   background: rgba(5, 10, 20, 0.5);
@@ -199,3 +199,15 @@ html.light .bn-container td { border-color: #c8bfaa; }
    như writeup cũ (bỏ padding trong của BlockNote) */
 .post-view { background: transparent; border: none; }
 .post-view .bn-editor { cursor: default; padding-inline: 0; }
+
+/* Trang soạn thảo (/edit): vùng nhập KHÔNG có nền/hộp màu — chảy thẳng trên
+   nền trang giống trang blog. Chỉ chừa lề để hiện tay cầm kéo-thả block. */
+#edit-content,
+#edit-content .bn-container,
+#edit-content .bn-editor,
+#edit-content .bn-mantine {
+  background: transparent !important;
+}
+#edit-content .bn-editor { padding-inline: 44px; }
+/* Bỏ khoảng trắng đầu/cuối dư của BlockNote để khớp padding blog */
+#edit-content .bn-block-group { padding-block: 0; }

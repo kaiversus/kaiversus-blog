@@ -93,6 +93,11 @@ export default async function PostPage({
           </div>
         </div>
 
+        {post.cover && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img className="post-cover" src={post.cover} alt={post.title} />
+        )}
+
         <div
           className="bn-container post-view"
           id="post-content"
@@ -100,16 +105,21 @@ export default async function PostPage({
         />
         <CodeEnhance />
 
-        <div
-          style={{
-            marginTop: 50,
-            borderTop: "1px dashed var(--border)",
-            paddingTop: 20,
-          }}
-        >
-          <Link href={backHref} style={{ color: "var(--text-muted)" }}>
-            [ cd .. ] {backLabel}
-          </Link>
+        <div className="author-bio">
+          <div className="author-avatar">
+            {(post.author ?? "K").charAt(0).toUpperCase()}
+          </div>
+          <div className="author-body">
+            <div className="author-name">{post.author ?? "Kaiversus"}</div>
+            <div className="author-desc">
+              Đinh Thiên Bảo — sinh viên An toàn thông tin @ HCMUTE. Malware
+              analysis, reverse engineering &amp; CTF.
+            </div>
+          </div>
+        </div>
+
+        <div className="post-back">
+          <Link href={backHref}>[ cd .. ] {backLabel}</Link>
         </div>
       </article>
 

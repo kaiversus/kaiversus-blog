@@ -333,7 +333,7 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
   align-items: flex-start;
   gap: 40px;
   max-width: 1160px;
-  margin: 60px auto;
+  margin: 32px auto;
   padding: 0 32px;
 }
 
@@ -353,9 +353,9 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 }
 
 .writeup-header {
-  margin-bottom: 50px;
+  margin-bottom: 28px;
   border-bottom: 1px dashed rgba(255,255,255,0.15);
-  padding-bottom: 25px;
+  padding-bottom: 16px;
 }
 
 .terminal-prompt {
