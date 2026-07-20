@@ -15,34 +15,15 @@
 }
 
 .bn-container {
-  --bn-font-family: var(--sans);
+  --bn-font-family: var(--mono);
   background: transparent !important;
-  font-family: var(--sans) !important;
-  font-size: 1rem;
-  line-height: 1.75;
-  letter-spacing: 0.002em;
+  font-family: var(--mono) !important;
+  font-size: 0.9rem;
+  line-height: 1.8;
   color: var(--text);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
 }
-/* Ép sans cho phần chữ (KaTeX được loại trừ để giữ font toán riêng) */
-.bn-container .bn-inline-content,
-.bn-container [data-content-type="paragraph"],
-.bn-container [data-content-type="heading"],
-.bn-container [data-content-type="bulletListItem"],
-.bn-container [data-content-type="numberedListItem"],
-.bn-container [data-content-type="checkListItem"],
-.bn-container [data-content-type="quote"] {
-  font-family: var(--sans) !important;
-}
-/* Giữ mono cho code / bảng (đọc code cần đều nét) */
-.bn-container code,
-.bn-container pre,
-.bn-container [data-content-type="codeBlock"],
-.bn-container [data-content-type="codeBlock"] *,
-.bn-container table,
-.bn-container table * {
+/* Ép mono như cũ, nhưng CHỪA subtree KaTeX để công thức giữ font toán riêng */
+.bn-container *:not(.katex):not(.katex *) {
   font-family: var(--mono) !important;
 }
 /* Đoạn văn dễ đọc hơn: giãn dòng + khoảng cách giữa các đoạn (tránh dày đặc) */
@@ -64,15 +45,14 @@
 
 /* ── Headings ── */
 .bn-container [data-content-type="heading"] {
-  font-family: var(--sans) !important;
-  text-transform: none;
-  letter-spacing: -0.015em;
-  line-height: 1.3;
+  font-family: var(--mono) !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   font-weight: 700;
   color: var(--text); /* MẶC ĐỊNH TRẮNG — tự đổi màu bằng color picker nếu muốn */
   padding-top: 0 !important; /* bỏ padding-top:18px mặc định của BlockNote core */
-  margin-top: 1.2em;
-  margin-bottom: 0.3em;
+  margin-top: 0.7em;
+  margin-bottom: 0.2em;
   scroll-margin-top: 110px;
 }
 /* Block ĐẦU TIÊN của bài không cộng thêm khoảng trống trên (đã có lề của header) */
