@@ -47,7 +47,7 @@ export default function Editor({
   const [category, setCategory] = useState<PostCategory>(post.category);
   const [tags, setTags] = useState((post.tags ?? []).join(", "));
   const [difficulty, setDifficulty] = useState(post.difficulty ?? "");
-  const [author, setAuthor] = useState(post.author ?? authors[0] ?? "");
+  const [author, setAuthor] = useState(post.author ?? "");
   const [cover, setCover] = useState(post.cover ?? "");
   const [github, setGithub] = useState(post.github_url ?? "");
   const [demo, setDemo] = useState(post.demo_url ?? "");
@@ -288,25 +288,23 @@ export default function Editor({
               <option value="intermediate">intermediate</option>
               <option value="advanced">advanced</option>
             </select>
-            <select
+            <input
               className={`txt author-select ${author ? "" : "required-empty"}`}
+              list="author-suggestions"
+              placeholder="tác giả *"
               value={author}
               onChange={(e) => {
                 setAuthor(e.target.value);
                 schedule();
               }}
               required
-              title="Tác giả (bắt buộc)"
-            >
-              <option value="" disabled>
-                — tác giả * —
-              </option>
+              title="Tác giả (bắt buộc) — nhập tay"
+            />
+            <datalist id="author-suggestions">
               {authorOptions.map((a) => (
-                <option key={a} value={a}>
-                  {a}
-                </option>
+                <option key={a} value={a} />
               ))}
-            </select>
+            </datalist>
             <input
               className="txt tags"
               placeholder="tags, cách nhau bởi dấu phẩy"
