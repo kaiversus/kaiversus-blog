@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { ServerBlockNoteEditor } from "@blocknote/server-util";
 import type { PartialBlock } from "@blocknote/core";
 import "highlight.js/styles/atom-one-dark.css";
+import "katex/dist/katex.min.css";
+import { serverSchema } from "@/lib/blocknote/server-schema";
 import { createPublicClient } from "@/lib/supabase/public";
 import type { Post } from "@/lib/types";
 import Toc from "@/components/Toc";
@@ -104,7 +106,7 @@ export default async function PostPage({
   const post = await getPost(slug);
   if (!post) notFound();
 
-  const server = ServerBlockNoteEditor.create();
+  const server = ServerBlockNoteEditor.create({ schema: serverSchema });
   const html = await server.blocksToFullHTML(
     (post.content as PartialBlock[]) ?? [],
   );

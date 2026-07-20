@@ -478,6 +478,27 @@ body.editing footer { display: none; }
 }
 
 /* ============================================================
+   Equation (KaTeX) — dùng chung editor + blog công khai
+   ============================================================ */
+.bn-equation-block {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 6px 2px;
+  text-align: center;
+}
+.bn-equation-block .katex-display {
+  margin: 0.2em 0;
+}
+.bn-inline-equation {
+  display: inline-block;
+  padding: 0 1px;
+}
+.bn-inline-equation .katex {
+  font-size: 1em;
+}
+
+/* ============================================================
    Trang blog công khai (/p/[slug])
    ============================================================ */
 

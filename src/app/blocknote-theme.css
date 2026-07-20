@@ -264,3 +264,48 @@ html.light .bn-container td { border-color: #c8bfaa; }
   padding: 1px 4px;
   border-radius: 4px;
 }
+
+/* ── Equation: giao diện sửa trong editor ── */
+.bn-eq-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--green) 5%, transparent);
+}
+.bn-eq-input {
+  width: 100%;
+  min-height: 52px;
+  resize: vertical;
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  outline: none;
+}
+.bn-eq-input:focus {
+  border-color: var(--green);
+}
+.bn-eq-preview {
+  overflow-x: auto;
+  text-align: center;
+  min-height: 1.4em;
+}
+/* Con trỏ tay cho equation trong editor (bấm để sửa) */
+.bn-container .bn-equation-block {
+  cursor: pointer;
+  border-radius: 6px;
+}
+.bn-container .bn-equation-block:hover {
+  background: color-mix(in srgb, var(--green) 7%, transparent);
+}
+.bn-container .bn-inline-equation:hover {
+  background: color-mix(in srgb, var(--green) 12%, transparent);
+  border-radius: 4px;
+}

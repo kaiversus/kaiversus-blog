@@ -1,10 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useCreateBlockNote } from "@blocknote/react";
+import { useCreateBlockNote, SuggestionMenuController } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
-import type { PartialBlock } from "@blocknote/core";
+import "katex/dist/katex.min.css";
+import { editorSchema, getSlashItems } from "@/lib/blocknote/react-schema";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -15,7 +16,7 @@ import { savePost, deletePost, type SavePatch } from "@/app/edit/[id]/actions";
 
 type SaveState = "idle" | "saving" | "saved" | "error";
 
-function deriveExcerpt(blocks: PartialBlock[]): string | null {
+function deriveExcerpt(blocks: readonly unknown[]): string | null {
   const parts: string[] = [];
   for (const b of blocks) {
     const content = (b as { content?: unknown }).content;
@@ -70,7 +71,7 @@ export default function Editor({
 
   const initialContent = useMemo(() => {
     const c = post.content;
-    return Array.isArray(c) && c.length > 0 ? (c as PartialBlock[]) : undefined;
+    return Array.isArray(c) && c.length > 0 ? (c as never[]) : undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -86,7 +87,11 @@ export default function Editor({
       .publicUrl;
   }, []);
 
-  const editor = useCreateBlockNote({ initialContent, uploadFile });
+  const editor = useCreateBlockNote({
+    schema: editorSchema,
+    initialContent,
+    uploadFile,
+  });
 
   async function onCoverFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -360,7 +365,17 @@ export default function Editor({
           </div>
 
           <div id="edit-content">
-            <BlockNoteView editor={editor} theme={theme} onChange={schedule} />
+            <BlockNoteView
+              editor={editor}
+              theme={theme}
+              onChange={schedule}
+              slashMenu={false}
+            >
+              <SuggestionMenuController
+                triggerCharacter="/"
+                getItems={async (query) => getSlashItems(editor, query)}
+              />
+            </BlockNoteView>
           </div>
         </article>
 
