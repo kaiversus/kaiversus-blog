@@ -267,6 +267,7 @@ html.light .bn-container td { border-color: #c8bfaa; }
 
 /* ── Equation: giao diện sửa trong editor ── */
 .bn-eq-edit {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -326,6 +327,7 @@ html.light .bn-container td { border-color: #c8bfaa; }
 /* Chip cho block equation còn trống (bấm để nhập) */
 .bn-eq-block-empty {
   cursor: pointer;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
