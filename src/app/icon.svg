@@ -1,0 +1,15 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" rx="14" fill="#0d1117"/>
+  <!-- spout -->
+  <g stroke="#8ecbff" stroke-width="2" stroke-linecap="round">
+    <path d="M18 21 C17 17 15 15 13 13"/>
+    <path d="M19 20 C19 16 19 14 19 11"/>
+    <path d="M20 21 C21 17 23 15 25 13"/>
+  </g>
+  <!-- whale body -->
+  <path d="M9 37 C9 27 21 22 31 23 C39 24 44 28 47 33 L57 27 C54 33 54 37 57 44 L47 37 C43 43 35 47 25 46 C15 45 9 42 9 37 Z" fill="#3b9eff"/>
+  <!-- belly highlight -->
+  <path d="M12 39 C18 45 34 46 44 39 C36 44 18 44 12 39 Z" fill="#8ecbff" opacity="0.85"/>
+  <!-- eye -->
+  <circle cx="18" cy="34" r="2" fill="#0d1117"/>
+</svg>
