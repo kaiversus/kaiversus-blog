@@ -49,9 +49,15 @@
   letter-spacing: 1px;
   font-weight: 700;
   color: #4ade80 !important;
-  margin-top: 0.9em;
+  padding-top: 0 !important; /* bỏ padding-top:18px mặc định của BlockNote core */
+  margin-top: 0.7em;
   margin-bottom: 0.2em;
   scroll-margin-top: 110px;
+}
+/* Block ĐẦU TIÊN của bài không cộng thêm khoảng trống trên (đã có lề của header) */
+.bn-container .bn-block-outer:first-child > .bn-block > .bn-block-content {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 html.light .bn-container [data-content-type="heading"] { color: #1e6e28 !important; }
 .bn-container [data-content-type="heading"][data-level="1"] {
