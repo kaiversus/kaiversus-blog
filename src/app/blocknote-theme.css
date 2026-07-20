@@ -48,7 +48,7 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
-  color: #4ade80 !important;
+  color: var(--text); /* MẶC ĐỊNH TRẮNG — tự đổi màu bằng color picker nếu muốn */
   padding-top: 0 !important; /* bỏ padding-top:18px mặc định của BlockNote core */
   margin-top: 0.7em;
   margin-bottom: 0.2em;
@@ -59,7 +59,6 @@
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
-html.light .bn-container [data-content-type="heading"] { color: #1e6e28 !important; }
 .bn-container [data-content-type="heading"][data-level="1"] {
   font-size: 1.8rem !important;
 }
@@ -67,35 +66,19 @@ html.light .bn-container [data-content-type="heading"] { color: #1e6e28 !importa
   font-size: 1.5rem !important;
 }
 .bn-container [data-content-type="heading"][data-level="3"] {
-  color: #ffffff !important;
   font-size: 1.2rem !important;
-  border-left: 3px solid #e8002a;
-  padding-left: 14px;
 }
 /* Heading phụ (#### #####) — nhỏ, không in hoa, để không bị phóng to */
 .bn-container [data-content-type="heading"][data-level="4"] {
-  color: #ffaa00 !important;
   font-size: 1rem !important;
   text-transform: none;
   letter-spacing: 0;
 }
 .bn-container [data-content-type="heading"][data-level="5"],
 .bn-container [data-content-type="heading"][data-level="6"] {
-  color: var(--text-sub) !important;
   font-size: 0.92rem !important;
   text-transform: none;
   letter-spacing: 0;
-}
-html.light .bn-container [data-content-type="heading"][data-level="1"],
-html.light .bn-container [data-content-type="heading"][data-level="2"] {
-  color: #1e6e28 !important;
-}
-html.light .bn-container [data-content-type="heading"][data-level="3"] {
-  color: #1c1a14 !important;
-  border-left-color: #9e001c;
-}
-html.light .bn-container [data-content-type="heading"][data-level="4"] {
-  color: #cc7700 !important;
 }
 
 /* ── Links ── */
@@ -250,3 +233,34 @@ html.light .bn-container td { border-color: #c8bfaa; }
 #edit-content .bn-editor { padding-inline: 44px; }
 /* Bỏ khoảng trắng đầu/cuối dư của BlockNote để khớp padding blog */
 #edit-content .bn-block-group { padding-block: 0; }
+
+/* ============================================================
+   Bảng màu tùy chỉnh (color picker của BlockNote)
+   9 màu CHỮ + 9 màu NỀN (highlight). Chọn khi bôi đen chữ →
+   nút chữ "A" có màu / mũi tên màu. Áp cho cả editor và blog.
+   ============================================================ */
+.bn-container [data-text-color="gray"]   { color: #8b949e !important; }
+.bn-container [data-text-color="brown"]  { color: #c08a5b !important; }
+.bn-container [data-text-color="red"]    { color: #ff5c72 !important; }
+.bn-container [data-text-color="orange"] { color: #ffaa00 !important; }
+.bn-container [data-text-color="yellow"] { color: #ffd45e !important; }
+.bn-container [data-text-color="green"]  { color: #3fb950 !important; }
+.bn-container [data-text-color="blue"]   { color: #58a6ff !important; }
+.bn-container [data-text-color="purple"] { color: #bc8cff !important; }
+.bn-container [data-text-color="pink"]   { color: #ff7bce !important; }
+
+/* Nền/highlight — dùng màu mờ để đọc được trên cả nền tối lẫn sáng */
+.bn-container [data-background-color="gray"]   { background-color: rgba(139, 148, 158, 0.20) !important; }
+.bn-container [data-background-color="brown"]  { background-color: rgba(192, 138, 91, 0.20) !important; }
+.bn-container [data-background-color="red"]    { background-color: rgba(255, 92, 114, 0.20) !important; }
+.bn-container [data-background-color="orange"] { background-color: rgba(255, 170, 0, 0.20) !important; }
+.bn-container [data-background-color="yellow"] { background-color: rgba(255, 212, 94, 0.22) !important; }
+.bn-container [data-background-color="green"]  { background-color: rgba(63, 185, 80, 0.20) !important; }
+.bn-container [data-background-color="blue"]   { background-color: rgba(88, 166, 255, 0.20) !important; }
+.bn-container [data-background-color="purple"] { background-color: rgba(188, 140, 255, 0.20) !important; }
+.bn-container [data-background-color="pink"]   { background-color: rgba(255, 123, 206, 0.20) !important; }
+/* chữ có nền: bo góc + đệm nhẹ cho đẹp */
+.bn-container [data-background-color]:not([data-background-color="default"]) {
+  padding: 1px 4px;
+  border-radius: 4px;
+}
