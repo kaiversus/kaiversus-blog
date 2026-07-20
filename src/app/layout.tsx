@@ -5,6 +5,7 @@ import "./legacy.css";
 import "@blocknote/core/style.css";
 import "./blocknote-theme.css";
 import Nav from "@/components/Nav";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 
 const mono = JetBrains_Mono({
   variable: "--font-mono",
@@ -18,9 +19,50 @@ const serif = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "Kaiversus // Notebook",
-  description:
-    "Sổ tay & blog của Dinh Thien Bao (Kaiversus) — malware analysis, reverse engineering, CTF.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Kaiversus // Notebook — Malware Analysis, Reverse Engineering & CTF",
+    template: "%s // Kaiversus",
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: "Đinh Thiên Bảo (Kaiversus)" }],
+  creator: "Đinh Thiên Bảo",
+  keywords: [
+    "malware analysis",
+    "reverse engineering",
+    "PE file",
+    "PE format",
+    "IAT",
+    "EAT",
+    "CTF writeup",
+    "picoCTF",
+    "TryHackMe",
+    "cybersecurity",
+    "phân tích mã độc",
+    "dịch ngược",
+    "Kaiversus",
+    "Đinh Thiên Bảo",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    url: SITE_URL,
+    title: "Kaiversus // Notebook — Malware Analysis, RE & CTF",
+    description: SITE_DESCRIPTION,
+    locale: "vi_VN",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kaiversus // Notebook",
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
 };
 
 // Áp theme đã lưu TRƯỚC khi render để tránh nháy sáng/tối.

@@ -7,6 +7,7 @@ import "highlight.js/styles/atom-one-dark.css";
 import "katex/dist/katex.min.css";
 import { serverSchema } from "@/lib/blocknote/server-schema";
 import { createPublicClient } from "@/lib/supabase/public";
+import { SITE_URL, SITE_NAME } from "@/lib/site";
 import type { Post } from "@/lib/types";
 import Toc from "@/components/Toc";
 import CodeEnhance from "@/components/CodeEnhance";
@@ -91,9 +92,42 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) return { title: "Not found" };
+
+  const url = `${SITE_URL}/p/${post.slug ?? post.id}`;
+  const description =
+    post.excerpt ?? `${post.title} — bài viết trên ${SITE_NAME}.`;
+  const keywords = [
+    ...(post.tags ?? []),
+    post.category,
+    "malware analysis",
+    "CTF writeup",
+    "Kaiversus",
+  ].filter(Boolean) as string[];
+  const images = post.cover ? [{ url: post.cover, alt: post.title }] : undefined;
+
   return {
-    title: `${post.title} // Kaiversus`,
-    description: post.excerpt ?? undefined,
+    title: post.title,
+    description,
+    keywords,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      siteName: SITE_NAME,
+      title: post.title,
+      description,
+      images,
+      publishedTime: post.published_at ?? undefined,
+      modifiedTime: post.updated_at ?? undefined,
+      authors: post.author ? [post.author] : undefined,
+      tags: post.tags ?? undefined,
+    },
+    twitter: {
+      card: images ? "summary_large_image" : "summary",
+      title: post.title,
+      description,
+      images: post.cover ? [post.cover] : undefined,
+    },
   };
 }
 
@@ -124,8 +158,30 @@ export default async function PostPage({
         ? "Back to Projects"
         : "Back to Courses";
 
+  const canonical = `${SITE_URL}/p/${post.slug ?? post.id}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: post.title,
+    description: post.excerpt ?? undefined,
+    image: post.cover ? [post.cover] : undefined,
+    datePublished: post.published_at ?? undefined,
+    dateModified: post.updated_at ?? post.published_at ?? undefined,
+    author: {
+      "@type": "Person",
+      name: post.author ?? "Đinh Thiên Bảo",
+    },
+    publisher: { "@type": "Organization", name: SITE_NAME },
+    mainEntityOfPage: canonical,
+    keywords: (post.tags ?? []).join(", ") || undefined,
+  };
+
   return (
     <div className="writeup-container">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <article className="wc-main">
         <div className="writeup-header">
           <div className="terminal-prompt">
