@@ -49,7 +49,7 @@ export default async function Home() {
               <span className="dot dot-red"></span>
               <span className="dot dot-yellow"></span>
               <span className="dot dot-green"></span>
-              <span className="terminal-title">kaiversus@blog: ~</span>
+              <span className="terminal-title">swt@skywhale: ~</span>
             </div>
             <div className="terminal-body" id="terminal-body"></div>
           </div>
@@ -57,8 +57,8 @@ export default async function Home() {
             <div className="hero-bio">
               <div className="hero-bio-label">// about</div>
               <p className="hero-bio-text">
-                Security researcher from Vietnam. I spend my time reversing
-                malware, breaking binaries, and writing about what I find.
+                SkyWhale Team (SWT) — a security research crew from Vietnam. We
+                reverse malware, break binaries, and write about what we find.
               </p>
             </div>
             <div className="hero-skills">

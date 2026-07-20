@@ -21,13 +21,13 @@ const serif = Newsreader({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Kaiversus // Notebook — Malware Analysis, Reverse Engineering & CTF",
-    template: "%s // Kaiversus",
+    default: "SkyWhale Team — SWT · Malware Analysis, Reverse Engineering & CTF",
+    template: "%s · SkyWhale Team",
   },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
-  authors: [{ name: "Đinh Thiên Bảo (Kaiversus)" }],
-  creator: "Đinh Thiên Bảo",
+  authors: [{ name: "SkyWhale Team (SWT)" }],
+  creator: "SkyWhale Team",
   keywords: [
     "malware analysis",
     "reverse engineering",
@@ -41,21 +41,22 @@ export const metadata: Metadata = {
     "cybersecurity",
     "phân tích mã độc",
     "dịch ngược",
-    "Kaiversus",
-    "Đinh Thiên Bảo",
+    "SkyWhale Team",
+    "SkyWhale",
+    "SWT",
   ],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
     url: SITE_URL,
-    title: "Kaiversus // Notebook — Malware Analysis, RE & CTF",
+    title: "SkyWhale Team — SWT · Malware Analysis, RE & CTF",
     description: SITE_DESCRIPTION,
     locale: "vi_VN",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kaiversus // Notebook",
+    title: "SkyWhale Team — SWT",
     description: SITE_DESCRIPTION,
   },
   robots: {
@@ -90,9 +91,9 @@ export default function RootLayout({
         {children}
         <footer>
           <div className="footer-brand">
-            <strong>kaiversus</strong>
+            <strong>SkyWhale Team</strong>
             <span style={{ color: "var(--text-faint)" }}>—</span>
-            <span>Dinh Thien Bao · 52Hz</span>
+            <span>SWT · 52Hz</span>
           </div>
           <div className="footer-links">
             <a href="https://github.com/kaiversus" target="_blank" rel="noreferrer">

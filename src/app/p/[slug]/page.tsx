@@ -101,7 +101,8 @@ export async function generateMetadata({
     post.category,
     "malware analysis",
     "CTF writeup",
-    "Kaiversus",
+    "SkyWhale Team",
+    "SWT",
   ].filter(Boolean) as string[];
   const images = post.cover ? [{ url: post.cover, alt: post.title }] : undefined;
 
@@ -186,7 +187,7 @@ export default async function PostPage({
         <div className="writeup-header">
           <div className="terminal-prompt">
             <span style={{ color: "#4ade80" }}>
-              root@kaiversus:~/{post.category}$
+              root@skywhale:~/{post.category}$
             </span>{" "}
             cat {post.slug ?? post.id}.md
           </div>

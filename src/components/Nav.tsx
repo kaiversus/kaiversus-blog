@@ -7,9 +7,9 @@ export default function Nav() {
   return (
     <nav>
       <Link href="/" className="nav-logo">
-        <span className="nav-logo-user">kaiversus</span>
+        <span className="nav-logo-user">swt</span>
         <span className="nav-logo-at">@</span>
-        <span className="nav-logo-host">blog</span>
+        <span className="nav-logo-host">skywhale</span>
         <span className="nav-logo-sym">:~$</span>
       </Link>
       <div className="nav-sep"></div>

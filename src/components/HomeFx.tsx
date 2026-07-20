@@ -162,16 +162,16 @@ export default function HomeFx() {
       prompt?: string;
       text?: string;
     }[] = [
-      { type: "cmd", prompt: "kaiversus@blog:~$ ", text: "whoami" },
-      { type: "out", text: "Dinh Thien Bao  //  kaiversus" },
+      { type: "cmd", prompt: "swt@skywhale:~$ ", text: "whoami" },
+      { type: "out", text: "SkyWhale Team  //  SWT" },
       { type: "blank" },
-      { type: "cmd", prompt: "kaiversus@blog:~$ ", text: "cat focus.txt" },
+      { type: "cmd", prompt: "swt@skywhale:~$ ", text: "cat focus.txt" },
       {
         type: "out",
         text: "Reverse Engineering · Binary Exploitation · Malware Analysis",
       },
       { type: "blank" },
-      { type: "cmd", prompt: "kaiversus@blog:~$ ", text: "uptime" },
+      { type: "cmd", prompt: "swt@skywhale:~$ ", text: "uptime" },
       {
         type: "comment",
         text: "# 3 years active  |  40+ writeups  |  [ SYSTEM: ONLINE ]",
@@ -199,7 +199,7 @@ export default function HomeFx() {
         row.className = "t-line";
         const p = document.createElement("span");
         p.className = "t-prompt";
-        p.textContent = "kaiversus@blog:~$ ";
+        p.textContent = "swt@skywhale:~$ ";
         const c = document.createElement("span");
         c.className = "t-cursor";
         row.appendChild(p);
