@@ -409,6 +409,40 @@ body.editing footer { display: none; }
 .admin .dash-row { font-family: var(--ui); border-radius: 10px; }
 .admin .dash-row .btn { font-size: 0.76rem; padding: 6px 11px; }
 
+/* Thanh tạo mới (note / writeup / project / khóa học) */
+.new-post-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding: 12px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: var(--ui);
+}
+.new-post-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-right: 2px;
+}
+.new-post-bar .btn { font-family: var(--ui); font-weight: 500; border-radius: 8px; }
+.new-course { display: flex; gap: 6px; align-items: center; margin-left: auto; }
+.new-course .txt {
+  width: auto;
+  font-family: var(--ui);
+  font-size: 0.8rem;
+  padding: 7px 11px;
+  border-radius: 8px;
+}
+@media (max-width: 620px) {
+  .new-course { margin-left: 0; width: 100%; }
+  .new-course .txt { flex: 1; }
+}
+
 /* Nút xoá 2 bước */
 .del-btn.confirm {
   border-color: var(--red);

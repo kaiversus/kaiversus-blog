@@ -25,6 +25,15 @@ export default async function Dashboard() {
   const drafts = posts.filter((p) => p.status === "draft");
   const published = posts.filter((p) => p.status === "published");
 
+  // Danh sách khóa học đã có = category khác writeup/project/note
+  const courseCats = [
+    ...new Set(
+      posts
+        .map((p) => p.category)
+        .filter((c) => c && !["writeup", "project", "note"].includes(c)),
+    ),
+  ].sort();
+
   return (
     <main className="container admin">
       <div className="page-head">
@@ -36,13 +45,42 @@ export default async function Dashboard() {
         </div>
         <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
           <MigrateButton />
-          <form action={createPost}>
-            <button className="btn btn-green">+ note mới</button>
-          </form>
           <form action="/auth/signout" method="post">
             <button className="btn btn-ghost">logout</button>
           </form>
         </div>
+      </div>
+
+      <div className="new-post-bar">
+        <span className="new-post-label">Tạo mới:</span>
+        <form action={createPost}>
+          <input type="hidden" name="category" value="note" />
+          <button className="btn btn-ghost">+ note</button>
+        </form>
+        <form action={createPost}>
+          <input type="hidden" name="category" value="writeup" />
+          <button className="btn btn-ghost">+ writeup</button>
+        </form>
+        <form action={createPost}>
+          <input type="hidden" name="category" value="project" />
+          <button className="btn btn-ghost">+ project</button>
+        </form>
+        <form action={createPost} className="new-course">
+          <input
+            className="txt"
+            name="category"
+            list="course-cats"
+            placeholder="tên khóa học…"
+            autoComplete="off"
+            required
+          />
+          <datalist id="course-cats">
+            {courseCats.map((c) => (
+              <option key={c} value={c} />
+            ))}
+          </datalist>
+          <button className="btn btn-green">+ bài khóa học</button>
+        </form>
       </div>
 
       {posts.length === 0 ? (
