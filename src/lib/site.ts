@@ -1,7 +1,7 @@
 // URL gốc của site — set NEXT_PUBLIC_SITE_URL trong Vercel cho đúng domain.
 // (canonical, sitemap, Open Graph đều dựa vào biến này)
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://kaiversus-blog.vercel.app"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://skywhale-blog.vercel.app"
 ).replace(/\/$/, "");
 
 export const SITE_NAME = "SkyWhale Team";
