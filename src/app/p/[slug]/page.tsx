@@ -91,6 +91,20 @@ export default async function PostPage({
             )}
             {post.author && <> | AUTHOR: {post.author}</>}
           </div>
+          {(post.demo_url || post.github_url) && (
+            <div className="post-links">
+              {post.demo_url && (
+                <a href={post.demo_url} target="_blank" rel="noreferrer">
+                  ▶ DEMO
+                </a>
+              )}
+              {post.github_url && (
+                <a href={post.github_url} target="_blank" rel="noreferrer">
+                  ⌥ REPO
+                </a>
+              )}
+            </div>
+          )}
         </div>
 
         {post.cover && (

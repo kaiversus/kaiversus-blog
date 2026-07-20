@@ -23,6 +23,9 @@ export interface SavePatch {
   difficulty: string | null;
   status: PostStatus;
   excerpt: string | null;
+  cover: string | null;
+  github_url: string | null;
+  demo_url: string | null;
   content: unknown;
 }
 
@@ -42,6 +45,9 @@ export async function savePost(id: string, patch: SavePatch) {
     difficulty: patch.difficulty,
     status: patch.status,
     excerpt: patch.excerpt,
+    cover: patch.cover,
+    github_url: patch.github_url,
+    demo_url: patch.demo_url,
     content: patch.content,
   };
 

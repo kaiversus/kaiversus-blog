@@ -43,6 +43,10 @@ export default function Editor({
   const [category, setCategory] = useState<PostCategory>(post.category);
   const [tags, setTags] = useState((post.tags ?? []).join(", "));
   const [difficulty, setDifficulty] = useState(post.difficulty ?? "");
+  const [cover, setCover] = useState(post.cover ?? "");
+  const [github, setGithub] = useState(post.github_url ?? "");
+  const [demo, setDemo] = useState(post.demo_url ?? "");
+  const [uploadingCover, setUploadingCover] = useState(false);
   const [status, setStatus] = useState(post.status);
   const [save, setSave] = useState<SaveState>("idle");
   const [confirmDel, setConfirmDel] = useState(false);
@@ -73,6 +77,22 @@ export default function Editor({
 
   const editor = useCreateBlockNote({ initialContent, uploadFile });
 
+  async function onCoverFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingCover(true);
+    try {
+      const url = await uploadFile(file);
+      setCover(url);
+      schedule();
+    } catch {
+      setSave("error");
+    } finally {
+      setUploadingCover(false);
+      e.target.value = "";
+    }
+  }
+
   // Bật chế độ full-screen (ẩn footer) khi ở trang editor
   useEffect(() => {
     document.body.classList.add("editing");
@@ -90,12 +110,15 @@ export default function Editor({
         difficulty: difficulty || null,
         status: nextStatus ?? status,
         excerpt: deriveExcerpt(content),
+        cover: cover.trim() || null,
+        github_url: github.trim() || null,
+        demo_url: demo.trim() || null,
         content,
       };
       const res = await savePost(post.id, patch);
       setSave(res.ok ? "saved" : "error");
     },
-    [editor, title, category, tags, difficulty, status, post.id],
+    [editor, title, category, tags, difficulty, cover, github, demo, status, post.id],
   );
 
   const schedule = useCallback(() => {
@@ -222,6 +245,49 @@ export default function Editor({
               value={tags}
               onChange={(e) => {
                 setTags(e.target.value);
+                schedule();
+              }}
+            />
+          </div>
+
+          <div className="doc-meta-row doc-extra-row">
+            {cover && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img className="cover-preview" src={cover} alt="cover" />
+            )}
+            <input
+              className="txt cover-url"
+              placeholder="ảnh bìa / thumbnail (URL)"
+              value={cover}
+              onChange={(e) => {
+                setCover(e.target.value);
+                schedule();
+              }}
+            />
+            <label className="btn btn-ghost cover-upload">
+              {uploadingCover ? "đang tải…" : "⬆ ảnh"}
+              <input
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={onCoverFile}
+              />
+            </label>
+            <input
+              className="txt"
+              placeholder="github repo URL"
+              value={github}
+              onChange={(e) => {
+                setGithub(e.target.value);
+                schedule();
+              }}
+            />
+            <input
+              className="txt"
+              placeholder="demo URL"
+              value={demo}
+              onChange={(e) => {
+                setDemo(e.target.value);
                 schedule();
               }}
             />

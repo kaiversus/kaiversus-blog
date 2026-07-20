@@ -25,6 +25,17 @@
 .bn-container * {
   font-family: var(--mono) !important;
 }
+/* Đoạn văn dễ đọc hơn: giãn dòng + khoảng cách giữa các đoạn (tránh dày đặc) */
+.bn-container [data-content-type="paragraph"] {
+  color: var(--text);
+  line-height: 1.75;
+  margin-bottom: 0.85em;
+}
+.bn-container [data-content-type="bulletListItem"],
+.bn-container [data-content-type="numberedListItem"] {
+  line-height: 1.7;
+  margin-bottom: 0.3em;
+}
 
 /* Padding trong panel (chừa lề cho block handle của BlockNote) */
 .bn-container .bn-editor {
@@ -166,10 +177,14 @@ html.light .bn-container code {
 }
 
 /* ── Tables ── giống blog cũ (nền tối, viền, header xanh) ── */
+/* Bảng rộng (nhiều cột): cuộn ngang thay vì bóp cột chật */
+.bn-container [data-content-type="table"] {
+  overflow-x: auto;
+  max-width: 100%;
+}
 .bn-container table {
   border-collapse: collapse;
   width: auto;
-  max-width: 100%;
   margin: 1.1em 0;
   font-family: var(--mono) !important;
   font-size: 0.82rem;
@@ -179,6 +194,7 @@ html.light .bn-container code {
 .bn-container td {
   border: 1px solid var(--border);
   padding: 9px 13px;
+  min-width: 84px;
   text-align: left;
   vertical-align: top;
 }

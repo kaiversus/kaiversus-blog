@@ -12,6 +12,8 @@ export interface Post {
   status: PostStatus;
   difficulty: string | null;
   cover: string | null;
+  github_url: string | null;
+  demo_url: string | null;
   content: unknown; // BlockNote PartialBlock[]
   excerpt: string | null;
   author: string | null;

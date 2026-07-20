@@ -14,7 +14,9 @@ create table if not exists public.posts (
   tags         text[]      not null default '{}',
   status       text        not null default 'draft'   check (status in ('draft','published')),
   difficulty   text,                                    -- basic | intermediate | advanced
-  cover        text,
+  cover        text,                                    -- ảnh bìa / thumbnail project
+  github_url   text,                                    -- link repo (nút REPO ở project)
+  demo_url     text,                                    -- link demo (nút DEMO ở project)
   content      jsonb       not null default '[]'::jsonb, -- nội dung block của BlockNote
   excerpt      text,
   author       text,

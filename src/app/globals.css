@@ -385,6 +385,23 @@ body.editing footer { display: none; }
 }
 .doc-meta-row .txt.tags { flex: 1; min-width: 160px; }
 
+/* Hàng ảnh bìa + link (github/demo) trong editor */
+.doc-extra-row { align-items: center; }
+.doc-extra-row .cover-url { flex: 1; min-width: 180px; }
+.cover-preview {
+  width: 46px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+}
+.cover-upload {
+  font-family: var(--ui);
+  font-size: 0.76rem;
+  padding: 6px 11px;
+  cursor: pointer;
+}
+
 /* ── Admin (dashboard) tối giản: font sans, nhẹ nhàng ── */
 .admin { font-family: var(--ui); }
 .admin .page-title { font-family: var(--ui); letter-spacing: -0.01em; }
@@ -419,8 +436,8 @@ body.editing footer { display: none; }
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-top: 40px;
-  padding: 18px 20px;
+  margin-top: 28px;
+  padding: 16px 20px;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-left: 3px solid var(--green);
@@ -445,6 +462,20 @@ body.editing footer { display: none; }
   margin-bottom: 3px;
 }
 .author-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; }
+
+/* Nút DEMO / REPO ở header bài project */
+.post-links { display: flex; gap: 10px; margin-top: 14px; }
+.post-links a {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-sub);
+  transition: all 0.15s;
+}
+.post-links a:hover { border-color: var(--green); color: var(--green); }
 
 /* Back-link cuối bài — trước đây thừa hưởng 16px nên bị to; ép về cỡ meta */
 .post-back { margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border); }
