@@ -24,7 +24,49 @@ function renderKatex(latex: string, displayMode: boolean) {
   });
 }
 
-/* ── Block equation: hiện KaTeX, bấm vào để sửa bằng textarea ── */
+/* Ô nhập LaTeX dùng chung (block + inline popover) */
+function LatexInput({
+  value,
+  multiline,
+  onChange,
+  onCommit,
+  onCancel,
+}: {
+  value: string;
+  multiline?: boolean;
+  onChange: (v: string) => void;
+  onCommit: () => void;
+  onCancel: () => void;
+}) {
+  const common = {
+    className: "bn-eq-input",
+    value,
+    autoFocus: true,
+    spellCheck: false,
+    placeholder: "LaTeX, ví dụ: \\frac{a}{b}",
+    onChange: (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+      onChange(e.target.value),
+    onBlur: onCommit,
+    onKeyDown: (
+      e: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>,
+    ) => {
+      if (e.key === "Enter" && !(multiline && e.shiftKey)) {
+        e.preventDefault();
+        onCommit();
+      } else if (e.key === "Escape") {
+        e.preventDefault();
+        onCancel();
+      }
+    },
+  };
+  return multiline ? (
+    <textarea rows={2} {...common} />
+  ) : (
+    <input type="text" {...common} />
+  );
+}
+
+/* ── Block equation: hiện KaTeX, bấm vào để sửa ── */
 function EquationBlockView({
   latex,
   onChange,
@@ -40,27 +82,24 @@ function EquationBlockView({
     onChange(draft.trim());
     setEditing(false);
   };
+  const cancel = () => {
+    setDraft(latex);
+    setEditing(false);
+  };
 
   if (editing) {
     return (
       <div className="bn-eq-edit" contentEditable={false}>
-        <textarea
-          className="bn-eq-input"
+        <div className="bn-eq-edit-head">
+          <span className="bn-eq-badge">∑ LaTeX</span>
+          <span className="bn-eq-hint">Enter lưu · Shift+Enter xuống dòng · Esc huỷ</span>
+        </div>
+        <LatexInput
           value={draft}
-          autoFocus
-          spellCheck={false}
-          placeholder="Nhập LaTeX, ví dụ: \int_0^1 x^2\,dx"
-          onChange={(e) => setDraft(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              commit();
-            } else if (e.key === "Escape") {
-              setDraft(latex);
-              setEditing(false);
-            }
-          }}
-          onBlur={commit}
+          multiline
+          onChange={setDraft}
+          onCommit={commit}
+          onCancel={cancel}
         />
         <div
           className="bn-eq-preview"
@@ -84,6 +123,65 @@ function EquationBlockView({
   );
 }
 
+/* ── Inline equation: bấm để sửa bằng popover ngay tại chỗ ── */
+function InlineEquationView({
+  latex,
+  onChange,
+}: {
+  latex: string;
+  onChange: (v: string) => void;
+}) {
+  const [editing, setEditing] = useState(latex === "");
+  const [draft, setDraft] = useState(latex);
+
+  const commit = () => {
+    onChange(draft.trim());
+    setEditing(false);
+  };
+  const cancel = () => {
+    setDraft(latex);
+    setEditing(false);
+  };
+
+  return (
+    <span className="bn-inline-eq-wrap" contentEditable={false}>
+      {latex ? (
+        <span
+          className="bn-inline-equation"
+          title="Bấm để sửa"
+          onClick={() => {
+            setDraft(latex);
+            setEditing(true);
+          }}
+          dangerouslySetInnerHTML={{ __html: renderKatex(latex, false) }}
+        />
+      ) : (
+        <span
+          className="bn-inline-eq-empty"
+          onClick={() => setEditing(true)}
+        >
+          ∑ công thức
+        </span>
+      )}
+
+      {editing && (
+        <span className="bn-eq-popover" contentEditable={false}>
+          <LatexInput
+            value={draft}
+            onChange={setDraft}
+            onCommit={commit}
+            onCancel={cancel}
+          />
+          <span
+            className="bn-eq-pop-preview"
+            dangerouslySetInnerHTML={{ __html: renderKatex(draft, false) }}
+          />
+        </span>
+      )}
+    </span>
+  );
+}
+
 const BlockEquation = createReactBlockSpec(equationBlockConfig(), {
   render: ({ block, editor }) => (
     <EquationBlockView
@@ -95,28 +193,15 @@ const BlockEquation = createReactBlockSpec(equationBlockConfig(), {
   ),
 });
 
-/* ── Inline equation: bấm vào để sửa qua prompt ── */
 const InlineEquation = createReactInlineContentSpec(inlineEquationConfig(), {
-  render: ({ inlineContent, updateInlineContent }) => {
-    const latex = String(inlineContent.props.latex || "");
-    return (
-      <span
-        className="bn-inline-equation"
-        contentEditable={false}
-        style={{ cursor: "pointer" }}
-        title="Bấm để sửa"
-        onClick={() => {
-          const next = window.prompt("Sửa LaTeX (inline):", latex);
-          if (next !== null)
-            updateInlineContent({
-              type: "inlineEquation",
-              props: { latex: next.trim() },
-            });
-        }}
-        dangerouslySetInnerHTML={{ __html: renderKatex(latex, false) }}
-      />
-    );
-  },
+  render: ({ inlineContent, updateInlineContent }) => (
+    <InlineEquationView
+      latex={String(inlineContent.props.latex || "")}
+      onChange={(latex) =>
+        updateInlineContent({ type: "inlineEquation", props: { latex } })
+      }
+    />
+  ),
 });
 
 export const editorSchema = BlockNoteSchema.create({
@@ -158,9 +243,8 @@ export function getSlashItems(
       group: "Math",
       icon: <span style={{ fontStyle: "italic" }}>x²</span>,
       onItemClick: () => {
-        const latex = window.prompt("Nhập LaTeX (inline):", "");
         editor.insertInlineContent([
-          { type: "inlineEquation", props: { latex: (latex || "").trim() } },
+          { type: "inlineEquation", props: { latex: "" } },
           " ",
         ]);
       },

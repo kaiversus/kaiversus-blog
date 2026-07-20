@@ -269,34 +269,60 @@ html.light .bn-container td { border-color: #c8bfaa; }
 .bn-eq-edit {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 10px 12px;
-  border: 1px dashed var(--border);
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--green) 5%, transparent);
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+.bn-eq-edit-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.bn-eq-badge {
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--green) 30%, transparent);
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+.bn-eq-hint {
+  font-size: 0.68rem;
+  color: var(--text-muted);
 }
 .bn-eq-input {
   width: 100%;
-  min-height: 52px;
   resize: vertical;
   font-family: var(--mono, ui-monospace, monospace);
-  font-size: 0.85rem;
-  line-height: 1.5;
+  font-size: 0.86rem;
+  line-height: 1.55;
   color: var(--text);
-  background: var(--bg-card);
+  background: color-mix(in srgb, var(--text) 4%, transparent);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 8px 10px;
+  border-radius: 8px;
+  padding: 9px 11px;
   outline: none;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
 }
 .bn-eq-input:focus {
   border-color: var(--green);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 18%, transparent);
 }
 .bn-eq-preview {
   overflow-x: auto;
   text-align: center;
-  min-height: 1.4em;
+  min-height: 1.6em;
+  padding: 4px 0;
+  border-top: 1px dashed var(--border);
 }
+
 /* Con trỏ tay cho equation trong editor (bấm để sửa) */
 .bn-container .bn-equation-block {
   cursor: pointer;
@@ -305,7 +331,49 @@ html.light .bn-container td { border-color: #c8bfaa; }
 .bn-container .bn-equation-block:hover {
   background: color-mix(in srgb, var(--green) 7%, transparent);
 }
-.bn-container .bn-inline-equation:hover {
-  background: color-mix(in srgb, var(--green) 12%, transparent);
+
+/* Inline equation trong editor: wrapper + popover + chip trống */
+.bn-inline-eq-wrap {
+  position: relative;
+  display: inline-block;
+}
+.bn-container .bn-inline-equation {
+  cursor: pointer;
   border-radius: 4px;
+  padding: 0 2px;
+}
+.bn-container .bn-inline-equation:hover {
+  background: color-mix(in srgb, var(--green) 14%, transparent);
+}
+.bn-inline-eq-empty {
+  cursor: pointer;
+  font-size: 0.78rem;
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 10%, transparent);
+  border: 1px dashed color-mix(in srgb, var(--green) 40%, transparent);
+  border-radius: 5px;
+  padding: 1px 7px;
+}
+.bn-eq-popover {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: max(240px, 16em);
+  padding: 10px 11px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  text-align: left;
+}
+.bn-eq-pop-preview {
+  overflow-x: auto;
+  min-height: 1.4em;
+  text-align: center;
+  padding-top: 6px;
+  border-top: 1px dashed var(--border);
 }
