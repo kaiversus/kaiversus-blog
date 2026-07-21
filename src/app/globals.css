@@ -2,23 +2,24 @@
    kaiversus-notebook — global theme (ported từ site Jekyll cũ)
    ============================================================ */
 
+/* Mặc định = tối (deep steel). Sáng steel là chủ đạo, khai báo ở html.light. */
 :root {
-  --bg:          #0d1117;
-  --bg-card:     #161b22;
-  --bg-surface:  #1c2128;
-  --border:      #30363d;
-  --border-dim:  #21262d;
+  --bg:          #0d1a2a;
+  --bg-card:     #122236;
+  --bg-surface:  #17293f;
+  --border:      #24384f;
+  --border-dim:  #1a2b40;
 
-  --text:        #e6edf3;
-  --text-sub:    #a8b3bf;
-  --text-muted:  #545d68;
-  --text-faint:  #2d333b;
+  --text:        #dbe7f3;
+  --text-sub:    #9db2c8;
+  --text-muted:  #6c7f95;
+  --text-faint:  #33465c;
 
-  --green:       #3fb950;
-  --green-dim:   rgba(63, 185, 80, 0.10);
-  --green-glow:  rgba(63, 185, 80, 0.20);
-  --amber:       #ffaa00;
-  --red:         #ff4060;
+  --green:       #58a6ff;
+  --green-dim:   rgba(88, 166, 255, 0.12);
+  --green-glow:  rgba(88, 166, 255, 0.24);
+  --amber:       #e0af4a;
+  --red:         #e0655f;
 
   --mono: "JetBrains Mono", "Courier New", monospace;
   --serif: "Newsreader", Georgia, serif;
@@ -29,22 +30,22 @@
 }
 
 html.light {
-  --bg:          #faf6ee;
-  --bg-card:     #f0e9d8;
-  --bg-surface:  #e8dfc8;
-  --border:      #c8bfaa;
-  --border-dim:  #d8d0be;
+  --bg:          #e8ebef;
+  --bg-card:     #eef2f6;
+  --bg-surface:  #e1e6ec;
+  --border:      #c6d0da;
+  --border-dim:  #d6dee6;
 
-  --text:        #1c1a14;
-  --text-sub:    #3d3828;
-  --text-muted:  #7a7260;
-  --text-faint:  #b0a890;
+  --text:        #1f2d40;
+  --text-sub:    #3a4a60;
+  --text-muted:  #5d6c7e;
+  --text-faint:  #8194a6;
 
-  --green:       #1e6e28;
-  --green-dim:   rgba(30, 110, 40, 0.10);
-  --green-glow:  rgba(30, 110, 40, 0.18);
-  --amber:       #cc7700;
-  --red:         #c0003c;
+  --green:       #286089;
+  --green-dim:   rgba(40, 96, 137, 0.12);
+  --green-glow:  rgba(40, 96, 137, 0.26);
+  --amber:       #b06a1e;
+  --red:         #b23a4a;
 }
 
 *,

@@ -69,7 +69,7 @@ export const metadata: Metadata = {
 // Áp theme đã lưu TRƯỚC khi render để tránh nháy sáng/tối.
 const themeInit = `
 (function(){try{
-  var t = localStorage.getItem('theme') || 'dark';
+  var t = localStorage.getItem('theme') || 'light';
   if (t === 'light') document.documentElement.classList.add('light');
 }catch(e){}})();
 `;
