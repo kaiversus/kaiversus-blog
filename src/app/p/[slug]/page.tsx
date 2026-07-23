@@ -76,6 +76,29 @@ function mergeFirstColRowspans(html: string): string {
   });
 }
 
+// Rút tiêu đề các mục (heading) trong bài làm keywords SEO — để Google
+// bắt được cả từ khóa trong nội dung (PE header, DOS stub, IAT...).
+function headingTerms(blocks: unknown): string[] {
+  const out: string[] = [];
+  const walk = (bs: unknown[]) => {
+    for (const b of bs ?? []) {
+      const blk = b as {
+        type?: string;
+        content?: { text?: string }[];
+        children?: unknown[];
+      };
+      if (blk?.type === "heading" && Array.isArray(blk.content)) {
+        const t = blk.content.map((c) => c.text ?? "").join("").trim();
+        if (t && t.length <= 60) out.push(t);
+      }
+      if (Array.isArray(blk?.children) && blk.children.length)
+        walk(blk.children);
+    }
+  };
+  if (Array.isArray(blocks)) walk(blocks);
+  return out.slice(0, 12);
+}
+
 async function getPost(slug: string): Promise<Post | null> {
   const supabase = createPublicClient();
   let query = supabase.from("posts").select("*").eq("status", "published");
@@ -97,13 +120,21 @@ export async function generateMetadata({
   const description =
     post.excerpt ?? `${post.title} — bài viết trên ${SITE_NAME}.`;
   const keywords = [
-    ...(post.tags ?? []),
-    post.category,
-    "malware analysis",
-    "CTF writeup",
-    "SkyWhale Team",
-    "SWT",
-  ].filter(Boolean) as string[];
+    ...new Set(
+      [
+        ...(post.tags ?? []),
+        ...headingTerms(post.content),
+        post.category,
+        "malware analysis",
+        "reverse engineering",
+        "PE file",
+        "CTF writeup",
+        "cybersecurity",
+        "SkyWhale Team",
+        "SWT",
+      ].filter(Boolean) as string[],
+    ),
+  ].slice(0, 25);
   const images = post.cover ? [{ url: post.cover, alt: post.title }] : undefined;
 
   return {
@@ -141,6 +172,22 @@ export default async function PostPage({
   const post = await getPost(slug);
   if (!post) notFound();
 
+  // Bài liên quan (ưu tiên cùng danh mục) — internal link tốt cho SEO + giữ chân người đọc.
+  const pub = createPublicClient();
+  const { data: relRaw } = await pub
+    .from("posts")
+    .select("id,title,slug,category,published_at")
+    .eq("status", "published")
+    .neq("id", post.id)
+    .is("deleted_at", null)
+    .order("published_at", { ascending: false })
+    .limit(12);
+  const rel = relRaw ?? [];
+  const related = [
+    ...rel.filter((r) => r.category === post.category),
+    ...rel.filter((r) => r.category !== post.category),
+  ].slice(0, 3);
+
   const server = ServerBlockNoteEditor.create({ schema: serverSchema });
   const html = await server.blocksToFullHTML(
     (post.content as PartialBlock[]) ?? [],
@@ -174,7 +221,10 @@ export default async function PostPage({
     },
     publisher: { "@type": "Organization", name: SITE_NAME },
     mainEntityOfPage: canonical,
-    keywords: (post.tags ?? []).join(", ") || undefined,
+    articleSection: post.category,
+    keywords:
+      [...(post.tags ?? []), ...headingTerms(post.content)].join(", ") ||
+      undefined,
   };
 
   return (
@@ -233,6 +283,21 @@ export default async function PostPage({
         />
         <CodeEnhance />
         <ViewTracker id={post.id} />
+
+        {related.length > 0 && (
+          <div className="post-related">
+            <div className="pr-title">// read next</div>
+            <ul>
+              {related.map((r) => (
+                <li key={r.id}>
+                  <Link href={`/p/${r.slug ?? r.id}`}>
+                    <span className="pr-cat">[{r.category}]</span> {r.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <div className="post-back">
           <Link href={backHref}>[ cd .. ] {backLabel}</Link>

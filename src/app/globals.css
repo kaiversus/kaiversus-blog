@@ -623,3 +623,27 @@ body.editing footer { display: none; }
   .dash-row .muted.hide-sm { display: none; }
   .doc-title-input, .doc-meta-row { padding-left: 24px; padding-right: 24px; }
 }
+
+/* ── Bài liên quan cuối bài (internal link cho SEO) ── */
+.post-related {
+  margin-top: 36px;
+  padding: 18px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-dim);
+  border-radius: 10px;
+}
+.post-related .pr-title {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 10px;
+}
+.post-related ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.post-related a {
+  font-size: 0.85rem;
+  color: var(--text-sub);
+  transition: color 0.15s;
+}
+.post-related a:hover { color: var(--green); }
+.post-related .pr-cat { color: var(--green); font-size: 0.72rem; margin-right: 4px; }

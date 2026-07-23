@@ -518,77 +518,76 @@ html.light .writeup-header h1 { color: var(--text); }
 .toc-wrapper::-webkit-scrollbar { display: none; }
 
 .toc-title {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.16em;
-  color: #4a5a70;
+  color: var(--text-faint);
   text-transform: uppercase;
-  margin: 0 0 14px;
+  margin: 0 0 12px;
   padding: 0;
   border: none;
   background: none;
 }
-html.light .toc-title { color: var(--text-faint); }
 
+/* ── TOC: rail trái + marker mục đang đọc, phân cấp thụt lề rõ ── */
 #custom-toc {
   display: flex;
   flex-direction: column;
   gap: 0;
-  border-left: 1px solid #1e2d3d;
-  padding-left: 12px;
+  position: relative;
+  border-left: 1px solid var(--border-dim);
+  padding-left: 14px;
   margin: 0;
-  min-height: 65vh;
   border-bottom: none !important;
   box-shadow: none !important;
 }
-html.light #custom-toc { border-left-color: var(--border); }
 
 #custom-toc a,
 #custom-toc a:link,
 #custom-toc a:visited {
   display: block;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.67rem;
+  position: relative;
+  font-family: var(--mono);
+  font-size: 0.7rem;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.45;
   padding: 4px 0;
   margin: 0;
-  color: #7a8fa0;
+  color: var(--text-muted);
   text-decoration: none;
   border: none;
-  border-bottom: none;
   background: none;
-  box-shadow: none;
-  outline: none;
   white-space: normal;
   word-break: break-word;
-  overflow-wrap: break-word;
-  overflow: visible;
-  max-width: 100%;
-  width: 100%;
-  transition: color 0.18s;
+  cursor: pointer;
+  transition: color 0.15s;
 }
-
+/* thanh marker nhỏ đè lên rail khi active/hover */
+#custom-toc a::before {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: 7px;
+  bottom: 7px;
+  width: 2px;
+  border-radius: 2px;
+  background: transparent;
+  transition: background 0.15s;
+}
 #custom-toc a:hover,
-#custom-toc a:focus {
-  color: #c8cdd6;
-  background: none;
-  text-decoration: none;
-  border: none;
-}
+#custom-toc a:focus { color: var(--text); background: none; border: none; }
 
-#custom-toc a.h2 { color: #9ab0c0; font-weight: 700; margin-top: 6px; }
-#custom-toc a.h3 { padding-left: 10px; font-size: 0.62rem; color: #607080; }
+/* Cấp 1-2 = mục lớn; cấp 3-4 thụt lề, nhỏ và nhạt dần */
+#custom-toc a.h1,
+#custom-toc a.h2 { color: var(--text-sub); font-weight: 700; margin-top: 10px; }
+#custom-toc a.h1:first-child,
+#custom-toc a.h2:first-child { margin-top: 0; }
+#custom-toc a.h3 { padding-left: 12px; font-size: 0.66rem; }
+#custom-toc a.h4 { padding-left: 24px; font-size: 0.63rem; color: var(--text-faint); }
+
 #custom-toc a.active { color: var(--green); }
-
-html.light #custom-toc a,
-html.light #custom-toc a:link,
-html.light #custom-toc a:visited { color: var(--text-muted); }
-html.light #custom-toc a:hover   { color: var(--text); }
-html.light #custom-toc a.h2      { color: var(--text-sub); }
-html.light #custom-toc a.h3      { color: var(--text-faint); }
-html.light #custom-toc a.active  { color: var(--green); }
+#custom-toc a.active::before { background: var(--green); }
 
 @media (max-width: 900px) {
   .writeup-container { flex-direction: column; }
