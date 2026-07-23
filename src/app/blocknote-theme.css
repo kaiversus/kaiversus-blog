@@ -43,16 +43,15 @@
   padding-inline: 44px;
 }
 
-/* ── Headings ── */
+/* ── Headings — phân cấp rõ ràng:
+   H1 = mục lớn (in hoa, màu accent, gạch dưới) > H2 > H3 ── */
 .bn-container [data-content-type="heading"] {
   font-family: var(--mono) !important;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   font-weight: 700;
-  color: var(--text); /* MẶC ĐỊNH TRẮNG — tự đổi màu bằng color picker nếu muốn */
+  color: var(--text);
   padding-top: 0 !important; /* bỏ padding-top:18px mặc định của BlockNote core */
-  margin-top: 0.7em;
-  margin-bottom: 0.2em;
+  margin-top: 1.6em;
+  margin-bottom: 0.35em;
   scroll-margin-top: 110px;
 }
 /* Block ĐẦU TIÊN của bài không cộng thêm khoảng trống trên (đã có lề của header) */
@@ -61,13 +60,21 @@
   padding-top: 0 !important;
 }
 .bn-container [data-content-type="heading"][data-level="1"] {
-  font-size: 1.8rem !important;
+  font-size: 1.45rem !important;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--green);
+  padding-bottom: 0.3em;
+  border-bottom: 1px dashed var(--border);
+  margin-top: 2em;
 }
 .bn-container [data-content-type="heading"][data-level="2"] {
-  font-size: 1.5rem !important;
+  font-size: 1.2rem !important;
+  letter-spacing: 0.3px;
 }
 .bn-container [data-content-type="heading"][data-level="3"] {
-  font-size: 1.2rem !important;
+  font-size: 1.05rem !important;
+  color: var(--text-sub);
 }
 /* Heading phụ (#### #####) — nhỏ, không in hoa, để không bị phóng to */
 .bn-container [data-content-type="heading"][data-level="4"] {
@@ -104,12 +111,12 @@ html.light .bn-container a:hover {
 /* ── Chữ in đậm ── tô màu để nổi bật giữa đoạn (dễ đọc, thấy được từ khóa) */
 .bn-container strong,
 .bn-container b {
-  color: #ffca6b !important;
+  color: #7cc0ee !important;   /* xanh dương sáng */
   font-weight: 700;
 }
 html.light .bn-container strong,
 html.light .bn-container b {
-  color: #a85e00 !important;
+  color: #1e6ca6 !important;
 }
 
 /* ── Inline code ── */
@@ -240,26 +247,15 @@ html.light .bn-container td { border-color: var(--border); }
    9 màu CHỮ + 9 màu NỀN (highlight). Chọn khi bôi đen chữ →
    nút chữ "A" có màu / mũi tên màu. Áp cho cả editor và blog.
    ============================================================ */
-.bn-container [data-text-color="gray"]   { color: #8b949e !important; }
-.bn-container [data-text-color="brown"]  { color: #c08a5b !important; }
-.bn-container [data-text-color="red"]    { color: #ff5c72 !important; }
-.bn-container [data-text-color="orange"] { color: #ffaa00 !important; }
-.bn-container [data-text-color="yellow"] { color: #ffd45e !important; }
-.bn-container [data-text-color="green"]  { color: #3fb950 !important; }
-.bn-container [data-text-color="blue"]   { color: #58a6ff !important; }
-.bn-container [data-text-color="purple"] { color: #bc8cff !important; }
-.bn-container [data-text-color="pink"]   { color: #ff7bce !important; }
+/* ĐỒNG BỘ MÀU: mọi màu chữ chọn trong editor đều quy về xanh dương sáng
+   (bỏ bảng màu cũ — nội dung cũ có tô màu gì cũng hiện xanh thống nhất) */
+.bn-container [data-text-color] { color: #7cc0ee !important; }
+html.light .bn-container [data-text-color] { color: #1e6ca6 !important; }
 
-/* Nền/highlight — dùng màu mờ để đọc được trên cả nền tối lẫn sáng */
-.bn-container [data-background-color="gray"]   { background-color: rgba(139, 148, 158, 0.20) !important; }
-.bn-container [data-background-color="brown"]  { background-color: rgba(192, 138, 91, 0.20) !important; }
-.bn-container [data-background-color="red"]    { background-color: rgba(255, 92, 114, 0.20) !important; }
-.bn-container [data-background-color="orange"] { background-color: rgba(255, 170, 0, 0.20) !important; }
-.bn-container [data-background-color="yellow"] { background-color: rgba(255, 212, 94, 0.22) !important; }
-.bn-container [data-background-color="green"]  { background-color: rgba(63, 185, 80, 0.20) !important; }
-.bn-container [data-background-color="blue"]   { background-color: rgba(88, 166, 255, 0.20) !important; }
-.bn-container [data-background-color="purple"] { background-color: rgba(188, 140, 255, 0.20) !important; }
-.bn-container [data-background-color="pink"]   { background-color: rgba(255, 123, 206, 0.20) !important; }
+/* Nền/highlight: mọi màu bôi nền cũng quy về 1 màu xanh mờ thống nhất */
+.bn-container [data-background-color]:not([data-background-color="default"]) {
+  background-color: rgba(91, 162, 217, 0.20) !important;
+}
 /* chữ có nền: bo góc + đệm nhẹ cho đẹp */
 .bn-container [data-background-color]:not([data-background-color="default"]) {
   padding: 1px 4px;

@@ -198,7 +198,7 @@ export default async function PostPage({
               <>
                 {" "}
                 | LEVEL:{" "}
-                <span style={{ color: "#ffaa00", fontWeight: 700 }}>
+                <span style={{ color: "var(--amber)", fontWeight: 700 }}>
                   {post.difficulty}
                 </span>
               </>

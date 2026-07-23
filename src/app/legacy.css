@@ -28,17 +28,19 @@ html.light body { background-image: none; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-nav {
+/* CHỈ nav.site-nav — selector `nav` trần sẽ dính cả <nav> của TOC! */
+nav.site-nav {
   position: sticky; top: 0; z-index: 100;
   display: flex; align-items: center;
   height: 65px; padding: 0 40px;
-  background: rgba(13, 26, 42, 0.96); backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(88,166,255,0.14);
+  background: rgba(22, 46, 71, 0.96); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(120,170,220,0.16);
 }
-html.light nav {
-  background: rgba(214,222,232,0.94) !important;
-  border-bottom: 1px solid var(--border) !important;
-  box-shadow: 0 1px 12px rgba(40,70,110,0.06) !important;
+/* Light: thanh steel xanh (đậm hơn nền trang rõ rệt) — theo bảng /color */
+html.light nav.site-nav {
+  background: linear-gradient(180deg, #c7d5e3, #b3c7d9) !important;
+  border-bottom: 1px solid #94aec5 !important;
+  box-shadow: 0 2px 14px rgba(42,70,119,0.14) !important;
 }
 .nav-logo { display: flex; align-items: center; gap: 6px; text-decoration: none; flex-shrink: 0; margin-right: 40px; }
 .nav-logo-user { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--green); letter-spacing: 0.02em; }
@@ -123,9 +125,10 @@ html.light .terminal-title   { color: rgba(80,55,20,0.4); }
 .hero-cta { display: flex; gap: 10px; padding: 24px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
 .btn { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; padding: 9px 20px; text-decoration: none; border: none; transition: all 0.15s; cursor: pointer; border-radius: 2px; }
 .btn-green { background: var(--green); color: #0d1117; font-weight: 700; }
+html.light .btn-green { color: #ffffff; }
 .btn-green:hover { filter: brightness(1.1); transform: translateY(-1px); }
-.btn-ghost { background: transparent; color: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.12); }
-.btn-ghost:hover { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.8); transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--text-sub); border: 1px solid var(--border); }
+.btn-ghost:hover { border-color: var(--text-muted); color: var(--text); transform: translateY(-1px); }
 .hero-stats-row { display: flex; gap: 0; padding-top: 24px; }
 .stat-inline { flex: 1; display: flex; flex-direction: column; gap: 4px; }
 .stat-inline .stat-num { font-size: 20px; font-weight: 700; color: rgba(255,255,255,0.7); line-height: 1; }
@@ -206,8 +209,8 @@ html.light .terminal-title   { color: rgba(80,55,20,0.4); }
 .theme-toggle { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 6px; border: 1px solid var(--border-dim); background: transparent; cursor: pointer; color: var(--text-muted); font-size: 16px; transition: border-color 0.15s, color 0.15s, background 0.15s; margin-left: 16px; flex-shrink: 0; }
 .theme-toggle:hover { border-color: var(--green); color: var(--green); background: var(--green-dim); }
 
-html.light nav { background: rgba(214,222,232,0.94); border-bottom: 1px solid var(--border); box-shadow: 0 1px 8px rgba(40,70,110,0.06); }
-html.light .nav-logo-sym { color: var(--sky, #6aa4c6); } html.light .nav-logo-at { color: var(--text-faint); }
+
+html.light .nav-logo-sym { color: #1c4c70; }
 html.light .section { background: var(--bg); } html.light .section-divider { background: var(--border-dim); }
 html.light .section-head { border-bottom-color: var(--border-dim); }
 html.light .section-path { color: var(--text-muted); } html.light .section-title { color: var(--text); }
@@ -265,12 +268,16 @@ footer { max-width: 900px; margin: 0 auto; padding: var(--space-xl) var(--space-
 .nav-links a .slash { color: var(--green) !important; font-weight: 700; }
 .nav-right     { color: rgba(255,255,255,0.85) !important; font-weight: 600; }
 
-html.light .nav-logo-at   { color: var(--text-faint) !important; }
-html.light .nav-logo-host { color: var(--text) !important; font-weight: 800; }
-html.light .nav-links a   { color: var(--text-sub) !important; font-weight: 700; }
-html.light .nav-links a .slash { color: var(--green) !important; font-weight: 800; }
-html.light .nav-right     { color: var(--text-muted) !important; font-weight: 700; }
-html.light .theme-toggle  { color: var(--text-sub) !important; border-color: var(--border) !important; }
+html.light .nav-logo-user { color: #1c4c70 !important; }
+html.light .nav-logo-at   { color: rgba(27,42,62,0.45) !important; }
+html.light .nav-logo-host { color: #1b2a3e !important; font-weight: 800; }
+html.light .nav-links a   { color: rgba(27,42,62,0.72) !important; font-weight: 700; }
+html.light .nav-links a:hover { color: #1b2a3e !important; }
+html.light .nav-links a .slash { color: #1c4c70 !important; font-weight: 800; }
+html.light .nav-links a::after { background: #1c4c70; }
+html.light .nav-right     { color: rgba(27,42,62,0.72) !important; font-weight: 700; }
+html.light .theme-toggle  { color: #1b2a3e !important; border-color: rgba(27,42,62,0.35) !important; }
+html.light .theme-toggle:hover { border-color: #1c4c70; color: #1c4c70; background: rgba(39,102,146,0.10); }
 
 /* =========================================
    SYS-READER (legacy, unused but kept)
@@ -317,9 +324,9 @@ html.light .theme-toggle  { color: var(--text-sub) !important; border-color: var
 }
 
 .writeup-header {
-  margin-bottom: 20px;
-  border-bottom: 1px dashed rgba(255,255,255,0.15);
-  padding-bottom: 16px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 20px;
 }
 
 .terminal-prompt {
@@ -331,7 +338,7 @@ html.light .theme-toggle  { color: var(--text-sub) !important; border-color: var
 
 .writeup-header h1 {
   color: #fff;
-  font-size: clamp(1.55rem, 3.2vw, 2rem);
+  font-size: clamp(1.85rem, 3.8vw, 2.5rem);
   line-height: 1.25;
   margin: 0 0 10px 0;
   font-family: 'JetBrains Mono', 'Courier New', monospace;

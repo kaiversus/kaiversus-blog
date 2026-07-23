@@ -5,7 +5,7 @@ import NavAuth from "./NavAuth";
 // Nav tĩnh (không đọc cookie) để trang công khai cache được.
 export default function Nav() {
   return (
-    <nav>
+    <nav className="site-nav">
       <Link href="/" className="nav-logo">
         <span className="nav-logo-user">swt</span>
         <span className="nav-logo-at">@</span>
