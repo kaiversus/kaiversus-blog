@@ -266,8 +266,9 @@ html.light .bn-container [data-text-color] { color: #1e6ca6 !important; }
 .bn-container [data-background-color]:not([data-background-color="default"]) {
   background-color: rgba(91, 162, 217, 0.20) !important;
 }
-/* chữ có nền: bo góc + đệm nhẹ cho đẹp */
-.bn-container [data-background-color]:not([data-background-color="default"]) {
+/* chữ có nền: bo góc + đệm nhẹ cho đẹp — TRỪ ô bảng (giữ padding ô nguyên) */
+.bn-container
+  [data-background-color]:not([data-background-color="default"]):not(td):not(th) {
   padding: 1px 4px;
   border-radius: 4px;
 }

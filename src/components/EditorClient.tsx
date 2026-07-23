@@ -91,6 +91,15 @@ export default function Editor({
     schema: editorSchema,
     initialContent,
     uploadFile,
+    // Bảng linh hoạt: menu kéo hàng/cột có nút bật/tắt header (hàng/cột được
+    // tô xanh) cho TỪNG bảng — không còn cứng nhắc theo dữ liệu import nữa;
+    // kèm gộp/tách ô + đổi màu nền/chữ từng ô.
+    tables: {
+      headers: true,
+      splitCells: true,
+      cellBackgroundColor: true,
+      cellTextColor: true,
+    },
   });
 
   async function onCoverFile(e: React.ChangeEvent<HTMLInputElement>) {
