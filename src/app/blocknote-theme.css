@@ -230,6 +230,16 @@ html.light .bn-container td { border-color: var(--border); }
 .post-view { background: transparent; border: none; }
 .post-view .bn-editor { cursor: default; padding-inline: 0; }
 
+/* Ảnh trong bài: BlockNote lưu width cố định (px) — chặn tràn màn hình hẹp */
+.bn-container img { max-width: 100%; height: auto; }
+.bn-container .bn-file-block-content-wrapper { max-width: 100% !important; }
+
+/* Chặn tràn ngang: .bn-block-content là flex → con của nó (đoạn văn chứa
+   URL/token dài không khoảng trắng) nở theo min-content vượt viewport.
+   Cho phép co lại + bẻ chữ quá dài. */
+.bn-container .bn-block-content > * { min-width: 0; }
+.bn-container .bn-inline-content { overflow-wrap: anywhere; }
+
 /* Trang soạn thảo (/edit): vùng nhập KHÔNG có nền/hộp màu — chảy thẳng trên
    nền trang giống trang blog. Chỉ chừa lề để hiện tay cầm kéo-thả block. */
 #edit-content,
@@ -462,3 +472,19 @@ html.light .hljs-variable,
 html.light .hljs-template-variable,
 html.light .hljs-deletion { color: #a84152 !important; }
 html.light .hljs-meta { color: #55677a !important; }
+
+/* ============================================================
+   MOBILE — nội dung bài viết co gọn theo màn hình hẹp
+   ============================================================ */
+@media (max-width: 640px) {
+  .bn-container { font-size: 0.85rem; }
+  .bn-container [data-content-type="heading"][data-level="1"] { font-size: 1.22rem !important; letter-spacing: 1px; }
+  .bn-container [data-content-type="heading"][data-level="2"] { font-size: 1.08rem !important; }
+  .bn-container [data-content-type="heading"][data-level="3"] { font-size: 1rem !important; }
+  .bn-container [data-content-type="codeBlock"] { font-size: 0.78rem; }
+  .bn-container [data-content-type="codeBlock"] pre { padding: 13px 14px; }
+  .bn-container [data-content-type="codeBlock"] code { font-size: 0.78rem; }
+  .post-view .copy-btn { padding: 2px 8px; font-size: 0.66rem; }
+  .bn-container th,
+  .bn-container td { padding: 7px 9px; min-width: 64px; font-size: 0.78rem; }
+}

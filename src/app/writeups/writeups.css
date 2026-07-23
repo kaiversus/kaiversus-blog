@@ -17,8 +17,10 @@
 .wu-page-header a:hover { color: var(--green); }
 .wu-page-header .path { color: var(--text-muted); }
 
+/* Màu đồng bộ với trang Courses (ac-page): tiêu đề accent xanh,
+   card nền bg-card + viền top sáng lên khi hover, badge dịu. */
 .wu-title {
-  color: var(--text);
+  color: var(--green);
   font-size: 1.8rem;
   margin-bottom: 40px;
   font-weight: bold;
@@ -36,14 +38,20 @@
   display: flex;
   flex-direction: column;
   text-decoration: none;
-  background: transparent;
+  background: var(--bg-card);
   border: 1px solid var(--border-dim);
-  border-radius: 6px;
+  border-top: 2px solid var(--border-dim);
+  border-radius: 4px;
   padding: 20px;
   transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
 }
-html.light .wu-card { background: var(--bg-card); }
-.wu-card:hover { transform: translateY(-3px); border-color: var(--green); }
+.wu-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--green) 32%, transparent);
+  border-top-color: var(--green);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+.wu-card:hover .wu-card-title { color: var(--green); }
 
 .wu-card-top {
   display: flex;
@@ -52,21 +60,22 @@ html.light .wu-card { background: var(--bg-card); }
   margin-bottom: 20px;
 }
 .wu-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+/* Badge kiểu diff-badge bên Courses: nhỏ, viền mảnh, nền rất nhạt */
 .wu-tag {
   border: 1px solid;
-  padding: 3px 8px;
-  font-size: 0.75rem;
-  border-radius: 4px;
-  letter-spacing: 1px;
+  padding: 2px 8px;
+  font-size: 0.68rem;
+  border-radius: 3px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 700;
 }
-.wu-tag-reverse { color: var(--red); border-color: var(--red); background: color-mix(in srgb, var(--red) 9%, transparent); }
-.wu-tag-crypto { color: var(--amber); border-color: var(--amber); background: color-mix(in srgb, var(--amber) 9%, transparent); }
-.wu-tag-web { color: #38a3d8; border-color: #38a3d8; background: rgba(56, 163, 216, 0.09); }
-.wu-tag-forensic { color: #a855f7; border-color: #a855f7; background: rgba(168, 85, 247, 0.08); }
+.wu-tag-reverse { color: var(--red); border-color: var(--red); background: color-mix(in srgb, var(--red) 8%, transparent); }
+.wu-tag-crypto { color: var(--amber); border-color: var(--amber); background: color-mix(in srgb, var(--amber) 8%, transparent); }
+.wu-tag-web { color: #4aa8e8; border-color: #4aa8e8; background: rgba(74, 168, 232, 0.08); }
+.wu-tag-forensic { color: var(--green); border-color: var(--green); background: var(--green-dim); }
 .wu-tag-default { color: var(--green); border-color: var(--green); background: var(--green-dim); }
-html.light .wu-tag-web { color: #1d6ca3; border-color: #1d6ca3; }
+html.light .wu-tag-web { color: #2b6f9e; border-color: #2b6f9e; background: rgba(43, 111, 158, 0.08); }
 
 .wu-date {
   color: var(--text-faint);
@@ -104,4 +113,13 @@ html.light .wu-tag-web { color: #1d6ca3; border-color: #1d6ca3; }
   text-align: right;
   color: var(--text-faint);
   font-size: 0.85rem;
+  transition: color 0.2s;
+}
+.wu-card:hover .wu-card-cta { color: var(--green); }
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .wu-page { padding: 32px 16px 64px; }
+  .wu-title { font-size: 1.4rem; margin-bottom: 24px; }
+  .wu-grid { grid-template-columns: 1fr; }
 }

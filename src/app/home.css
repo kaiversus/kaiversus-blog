@@ -168,6 +168,28 @@
   .sw-dir .sw-whalecut { left: 50% !important; height: 92%; top: 4%; opacity: .3; }
   .whale-widget { display: none; }
 }
+/* ---- mobile (điện thoại) ---- */
+@media (max-width: 640px) {
+  .sw-hero { padding: 34px 0 84px; }
+  .sw-wrap { padding: 0 18px; }
+  /* ASCII 107 cột: tính cỡ chữ theo đúng bề rộng còn lại của màn hình */
+  .sw-ascii { font-size: calc((100vw - 36px) / 65); }
+  .sw-subrole { font-size: 12px; }
+  .sw-hero-grid { gap: 22px; margin-top: 30px; }
+  .sw-termbody { min-height: 148px; font-size: 12px; padding: 13px 14px; }
+  .sw-bio { font-size: 13.5px; }
+  .sw-chip { font-size: 11px; padding: 4px 10px; }
+  .sw-btn { font-size: 12.5px; padding: 10px 16px; }
+  .sw-stats { flex-wrap: wrap; gap: 14px 22px; }
+  .sw-stat b { font-size: 19px; }
+  .sw-wave { height: 46px; }
+  .sw-logs .sw-wrap { padding-top: 44px; padding-bottom: 52px; }
+  .sw-dirs { gap: 13px; }
+  .sw-dir { min-height: 190px; padding: 18px 18px 15px; }
+  .sw-dir .sw-deco-img { width: 58px !important; }
+  .sw-dir .sw-idx { font-size: 46px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sw-ascii::before, .sw-ascii::after, .sw-cursor { animation: none; }
 }

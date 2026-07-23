@@ -517,6 +517,15 @@ body.editing footer { display: none; }
 .bn-equation-block .katex-display {
   margin: 0;
 }
+
+/* ============================================================
+   MOBILE — container chung + lưới bài
+   ============================================================ */
+@media (max-width: 640px) {
+  .container { padding: 32px 16px 64px; }
+  .post-grid { grid-template-columns: 1fr; }
+  .page-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+}
 /* Block equation làm trọng tâm: chữ to hơn, căn giữa */
 .bn-equation-block .katex {
   font-size: 1.45em;

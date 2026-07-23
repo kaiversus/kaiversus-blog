@@ -133,6 +133,9 @@ html.light .ac-page {
 .module-desc { font-size: 0.75rem; color: var(--ac-muted); line-height: 1.6; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
 @media (max-width: 640px) {
+  .ac-page { padding: 32px 16px 64px; }
+  .ac-header { margin-bottom: 26px; }
   .module-grid { grid-template-columns: 1fr; }
   .cat-hex { display: none; }
+  .cat-row { padding: 14px 14px; gap: 10px; }
 }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 import NavAuth from "./NavAuth";
+import MobileMenu from "./MobileMenu";
 
 // Nav tĩnh (không đọc cookie) để trang công khai cache được.
 export default function Nav() {
@@ -39,6 +40,7 @@ export default function Nav() {
         <span className="status-dot"></span>
         <NavAuth />
         <ThemeToggle />
+        <MobileMenu />
       </div>
     </nav>
   );

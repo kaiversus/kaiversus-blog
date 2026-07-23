@@ -108,6 +108,8 @@ html.light .proj-page {
 .proj-btn-github:hover { color: var(--proj-text); border-color: var(--proj-muted); background: rgba(128, 128, 128, 0.06); }
 
 @media (max-width: 640px) {
+  .proj-page { padding: 32px 16px 64px; }
+  .proj-page-header { margin-bottom: 28px; }
   .proj-grid { grid-template-columns: 1fr; }
   .proj-section-desc { display: none; }
 }

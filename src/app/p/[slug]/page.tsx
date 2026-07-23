@@ -10,6 +10,7 @@ import { createPublicClient } from "@/lib/supabase/public";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 import type { Post } from "@/lib/types";
 import Toc from "@/components/Toc";
+import TocFab from "@/components/TocFab";
 import CodeEnhance from "@/components/CodeEnhance";
 import ViewTracker from "@/components/ViewTracker";
 
@@ -310,6 +311,9 @@ export default async function PostPage({
           <Toc target="#post-content" bare />
         </div>
       </aside>
+
+      {/* Màn hẹp (sidebar ẩn): nút mục lục nổi */}
+      <TocFab target="#post-content" />
     </div>
   );
 }
