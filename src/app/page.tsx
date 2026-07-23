@@ -6,12 +6,12 @@ import WhaleRunner from "@/components/WhaleRunner";
 
 export const revalidate = 120;
 
-const ASCII = `███████╗██╗  ██╗██╗   ██╗██╗    ██╗██╗  ██╗ █████╗ ██╗     ███████╗
-██╔════╝██║ ██╔╝╚██╗ ██╔╝██║    ██║██║  ██║██╔══██╗██║     ██╔════╝
-███████╗█████╔╝  ╚████╔╝ ██║ █╗ ██║███████║███████║██║     █████╗
-╚════██║██╔═██╗   ╚██╔╝  ██║███╗██║██╔══██║██╔══██║██║     ██╔══╝
-███████║██║  ██╗   ██║   ╚███╔███╔╝██║  ██║██║  ██║███████╗███████╗
-╚══════╝╚═╝  ╚═╝   ╚═╝    ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝`;
+const ASCII = `███████╗██╗  ██╗██╗   ██╗██╗    ██╗██╗  ██╗ █████╗ ██╗     ███████╗    ████████╗███████╗ █████╗ ███╗   ███╗
+██╔════╝██║ ██╔╝╚██╗ ██╔╝██║    ██║██║  ██║██╔══██╗██║     ██╔════╝    ╚══██╔══╝██╔════╝██╔══██╗████╗ ████║
+███████╗█████╔╝  ╚████╔╝ ██║ █╗ ██║███████║███████║██║     █████╗         ██║   █████╗  ███████║██╔████╔██║
+╚════██║██╔═██╗   ╚██╔╝  ██║███╗██║██╔══██║██╔══██║██║     ██╔══╝         ██║   ██╔══╝  ██╔══██║██║╚██╔╝██║
+███████║██║  ██╗   ██║   ╚███╔███╔╝██║  ██║██║  ██║███████╗███████╗       ██║   ███████╗██║  ██║██║ ╚═╝ ██║
+╚══════╝╚═╝  ╚═╝   ╚═╝    ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝       ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝`;
 
 export default async function Home() {
   const supabase = createPublicClient();
@@ -28,6 +28,13 @@ export default async function Home() {
   return (
     <div className="sw-home">
       <section className="sw-hero">
+        <canvas className="sw-stars" id="hero-stars" aria-hidden="true"></canvas>
+        <img className="sw-hero-deco" src="/whale/constellation.png" alt="" aria-hidden="true"
+             style={{ top: "10%", right: "4%", width: 120 }} />
+        <img className="sw-hero-deco" src="/whale/astronomy.png" alt="" aria-hidden="true"
+             style={{ top: "26%", left: "3.5%", width: 110 }} />
+        <img className="sw-hero-deco" src="/whale/rocket.png" alt="" aria-hidden="true"
+             style={{ bottom: "16%", right: "5%", width: 92 }} />
         <div className="sw-wrap">
           <pre className="sw-ascii" id="ascii-art">{ASCII}</pre>
           <div className="sw-subrole">
@@ -100,7 +107,7 @@ export default async function Home() {
         >
           <path
             d="M0,34 C220,72 430,4 680,31 C920,56 1160,74 1440,29 L1440,72 L0,72 Z"
-            fill="#e8ebef"
+            fill="var(--bg)"
           />
           <path
             d="M0,34 C220,72 430,4 680,31 C920,56 1160,74 1440,29"
@@ -129,10 +136,38 @@ export default async function Home() {
             <Link className="sw-dir a1" href="/writeups">
               <div className="sw-cpath">~/writeups</div>
               <div className="sw-ctitle">Writeups</div>
-              <div className="sw-cdesc">
-                CTF solutions &amp; malware analysis logs — picoCTF, TryHackMe
-                and beyond.
-              </div>
+              {/* galaxy: sao chổi + chấm sao */}
+              <svg
+                className="sw-deco"
+                style={{ top: 16, right: 16 }}
+                width="150"
+                height="120"
+                viewBox="0 0 150 120"
+                fill="none"
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient id="cmt1" x1="1" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#cfe4f8" />
+                    <stop offset="1" stopColor="#cfe4f8" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <line x1="128" y1="18" x2="60" y2="60" stroke="url(#cmt1)" strokeWidth="2" strokeLinecap="round" />
+                <circle cx="130" cy="17" r="2.4" fill="#e6f2fc" />
+                <circle cx="22" cy="20" r="1.6" fill="currentColor" />
+                <circle cx="58" cy="8" r="1.1" fill="currentColor" />
+                <circle cx="98" cy="86" r="1.4" fill="currentColor" />
+                <circle cx="30" cy="96" r="1" fill="currentColor" />
+                <path d="M70 82 L72 90 L80 92 L72 94 L70 102 L68 94 L60 92 L68 90 Z" fill="currentColor" opacity=".8" />
+              </svg>
+              <img className="sw-deco-img" src="/whale/saturn.png" alt="" aria-hidden="true"
+                   style={{ top: 132, left: 22, width: 88 }} />
+              <img
+                className="sw-whalecut"
+                src="/whale/whale-line.png"
+                alt=""
+                aria-hidden="true"
+              />
               <div className="sw-cgo">
                 explore <span className="a">→</span>
               </div>
@@ -141,10 +176,27 @@ export default async function Home() {
             <Link className="sw-dir a2" href="/courses">
               <div className="sw-cpath">~/courses</div>
               <div className="sw-ctitle">Courses</div>
-              <div className="sw-cdesc">
-                Our learning path — notes, certs and the knowledge base we build
-                from.
-              </div>
+              {/* vài ngôi sao + sao chổi nhỏ */}
+              <svg className="sw-deco" style={{ top: 12, right: 14 }} width="120" height="80"
+                   viewBox="0 0 120 80" fill="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="cmt2" x1="1" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#cfe4f8" />
+                    <stop offset="1" stopColor="#cfe4f8" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <line x1="102" y1="16" x2="58" y2="44" stroke="url(#cmt2)" strokeWidth="1.6" strokeLinecap="round" />
+                <circle cx="104" cy="15" r="1.8" fill="#e6f2fc" />
+                <circle cx="22" cy="14" r="1.3" fill="currentColor" />
+                <circle cx="44" cy="64" r="1" fill="currentColor" />
+                <path d="M20 48 L21.6 53.4 L27 55 L21.6 56.6 L20 62 L18.4 56.6 L13 55 L18.4 53.4 Z" fill="currentColor" opacity=".7" />
+              </svg>
+              <img
+                className="sw-whalecut"
+                src="/whale/whale-line.png"
+                alt=""
+                aria-hidden="true"
+              />
               <div className="sw-cgo">
                 explore <span className="a">→</span>
               </div>
@@ -153,10 +205,28 @@ export default async function Home() {
             <Link className="sw-dir a3" href="/projects">
               <div className="sw-cpath">~/projects</div>
               <div className="sw-ctitle">Projects</div>
-              <div className="sw-cdesc">
-                GitHub repositories, tooling, and the research samples we tear
-                apart.
-              </div>
+              {/* icon thiên hà + sao/sao chổi nhỏ */}
+              <img className="sw-deco-img" src="/whale/galaxy.png" alt="" aria-hidden="true"
+                   style={{ top: 14, right: 18, width: 104 }} />
+              <svg className="sw-deco" style={{ top: 128, right: 20 }} width="110" height="90"
+                   viewBox="0 0 110 90" fill="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="cmt3" x1="1" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#cfe4f8" />
+                    <stop offset="1" stopColor="#cfe4f8" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <line x1="92" y1="26" x2="42" y2="58" stroke="url(#cmt3)" strokeWidth="1.8" strokeLinecap="round" />
+                <circle cx="94" cy="25" r="2" fill="#e6f2fc" />
+                <circle cx="20" cy="16" r="1.3" fill="currentColor" />
+                <circle cx="60" cy="80" r="1.1" fill="currentColor" />
+              </svg>
+              <img
+                className="sw-whalecut"
+                src="/whale/whale-line.png"
+                alt=""
+                aria-hidden="true"
+              />
               <div className="sw-cgo">
                 explore <span className="a">→</span>
               </div>

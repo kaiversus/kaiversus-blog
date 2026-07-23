@@ -10,22 +10,22 @@
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 20px;
-  color: #7a6a50;
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
-.wu-page-header a { color: #7a8fa0; text-decoration: none; transition: color 0.2s; }
-.wu-page-header a:hover { color: var(--green, #3fb950); }
-.wu-page-header .path { color: #7a8fa0; }
+.wu-page-header a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.wu-page-header a:hover { color: var(--green); }
+.wu-page-header .path { color: var(--text-muted); }
 
 .wu-title {
-  color: #ffffff;
+  color: var(--text);
   font-size: 1.8rem;
   margin-bottom: 40px;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-html.light .wu-title { color: #1c1a14; }
+
 
 .wu-grid {
   display: grid;
@@ -37,13 +37,13 @@ html.light .wu-title { color: #1c1a14; }
   flex-direction: column;
   text-decoration: none;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-dim);
   border-radius: 6px;
   padding: 20px;
   transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
 }
-html.light .wu-card { background: rgba(240, 233, 220, 0.7); border-color: #c8bfaa; }
-.wu-card:hover { transform: translateY(-3px); }
+html.light .wu-card { background: var(--bg-card); }
+.wu-card:hover { transform: translateY(-3px); border-color: var(--green); }
 
 .wu-card-top {
   display: flex;
@@ -61,37 +61,33 @@ html.light .wu-card { background: rgba(240, 233, 220, 0.7); border-color: #c8bfa
   text-transform: uppercase;
   font-weight: 700;
 }
-.wu-tag-reverse { color: #ff0055; border-color: #ff0055; background: rgba(255, 0, 85, 0.08); }
-.wu-tag-crypto { color: #ffaa00; border-color: #ffaa00; background: rgba(255, 170, 0, 0.08); }
-.wu-tag-web { color: #00aaff; border-color: #00aaff; background: rgba(0, 170, 255, 0.08); }
+.wu-tag-reverse { color: var(--red); border-color: var(--red); background: color-mix(in srgb, var(--red) 9%, transparent); }
+.wu-tag-crypto { color: var(--amber); border-color: var(--amber); background: color-mix(in srgb, var(--amber) 9%, transparent); }
+.wu-tag-web { color: #38a3d8; border-color: #38a3d8; background: rgba(56, 163, 216, 0.09); }
 .wu-tag-forensic { color: #a855f7; border-color: #a855f7; background: rgba(168, 85, 247, 0.08); }
-.wu-tag-default { color: #00ff41; border-color: #00ff41; background: rgba(0, 255, 65, 0.08); }
-html.light .wu-tag-reverse { color: #c0003c; border-color: #c0003c; }
-html.light .wu-tag-crypto { color: #cc7700; border-color: #cc7700; }
-html.light .wu-tag-web { color: #0077cc; border-color: #0077cc; }
-html.light .wu-tag-forensic { color: #7c3abf; border-color: #7c3abf; }
-html.light .wu-tag-default { color: #1e6e28; border-color: #1e6e28; }
+.wu-tag-default { color: var(--green); border-color: var(--green); background: var(--green-dim); }
+html.light .wu-tag-web { color: #1d6ca3; border-color: #1d6ca3; }
 
 .wu-date {
-  color: #666;
+  color: var(--text-faint);
   font-size: 0.85rem;
   white-space: nowrap;
   padding-left: 10px;
 }
-html.light .wu-date { color: #7a6a50; }
+
 
 .wu-card-title {
-  color: #ffffff;
+  color: var(--text);
   margin: 0 0 15px 0;
   font-size: 1.2rem;
   font-weight: bold;
   line-height: 1.4;
   transition: color 0.2s;
 }
-html.light .wu-card-title { color: #1c1a14; }
+
 
 .wu-card-desc {
-  color: #888;
+  color: var(--text-muted);
   font-size: 0.95rem;
   margin: 0;
   line-height: 1.6;
@@ -101,11 +97,11 @@ html.light .wu-card-title { color: #1c1a14; }
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-html.light .wu-card-desc { color: #5a5040; }
+
 
 .wu-card-cta {
   margin-top: 20px;
   text-align: right;
-  color: #555;
+  color: var(--text-faint);
   font-size: 0.85rem;
 }

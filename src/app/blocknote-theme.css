@@ -84,21 +84,21 @@
 
 /* ── Links ── */
 .bn-container a {
-  color: #4ade80 !important;
+  color: var(--green) !important;
   text-decoration: none;
-  border-bottom: 1px dashed #4ade80;
+  border-bottom: 1px dashed var(--green);
 }
 .bn-container a:hover {
   color: #fff;
-  background: rgba(0, 255, 65, 0.1);
+  background: var(--green-dim);
 }
 html.light .bn-container a {
-  color: #1e6e28 !important;
-  border-bottom-color: #1e6e28;
+  color: var(--green) !important;
+  border-bottom-color: var(--green);
 }
 html.light .bn-container a:hover {
-  color: #0a3a10;
-  background: rgba(30, 110, 40, 0.08);
+  color: #163d5c;
+  background: var(--green-dim);
 }
 
 /* ── Chữ in đậm ── tô màu để nổi bật giữa đoạn (dễ đọc, thấy được từ khóa) */
@@ -114,23 +114,23 @@ html.light .bn-container b {
 
 /* ── Inline code ── */
 .bn-container code {
-  background: #21262d;
-  color: #4ade80;
+  background: rgba(91, 162, 217, 0.12);
+  color: var(--green);
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 0.9em;
   font-family: var(--mono);
 }
 html.light .bn-container code {
-  background: rgba(0, 0, 0, 0.07);
-  color: #8a5800;
+  background: var(--green-dim);
+  color: var(--green);
 }
 
 /* ── Code block ── hộp terminal tối (luôn tối cả 2 theme, giống PDF/blog) ── */
 .bn-container [data-content-type="codeBlock"] {
   position: relative;
-  background: #0d1117 !important;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--code-bg) !important;
+  border: 1px solid var(--code-border);
   border-radius: 8px;
   font-size: 0.85rem;
   margin: 1.1em 0;
@@ -203,20 +203,20 @@ html.light .bn-container code {
 .bn-container td[rowspan]:first-child {
   vertical-align: middle;
   text-align: center;
-  background: rgba(63, 185, 80, 0.04);
+  background: var(--green-dim);
 }
 .bn-container th {
-  background: rgba(63, 185, 80, 0.08);
-  color: #3fb950;
+  background: var(--green-dim);
+  color: var(--green);
   font-weight: 700;
 }
-html.light .bn-container table { background: #f0e9d8; }
+html.light .bn-container table { background: var(--bg-card); }
 html.light .bn-container th {
-  background: #ddd8c4;
-  color: #1e6e28;
-  border-color: #c8bfaa;
+  background: var(--green-dim);
+  color: var(--green);
+  border-color: var(--border);
 }
-html.light .bn-container td { border-color: #c8bfaa; }
+html.light .bn-container td { border-color: var(--border); }
 
 /* Viewer (read-only) trên trang blog: KHÔNG bọc hộp, nội dung chảy sát header
    như writeup cũ (bỏ padding trong của BlockNote) */
@@ -398,3 +398,71 @@ html.light .bn-container td { border-color: #c8bfaa; }
   padding-top: 6px;
   border-top: 1px dashed var(--border);
 }
+
+/* ============================================================
+   highlight.js (atom-one-dark) — nắn về họ XANH DƯƠNG SkyWhale:
+   nền theo --code-bg, string bỏ xanh lá -> cyan-xanh.
+   ============================================================ */
+.hljs {
+  background: transparent !important;
+  color: #b8c9da;
+}
+.hljs-string,
+.hljs-addition,
+.hljs-meta .hljs-string {
+  color: #4db8c4 !important;
+}
+.hljs-comment,
+.hljs-quote {
+  color: #5d7791 !important;
+}
+.hljs-title,
+.hljs-title.function_,
+.hljs-name {
+  color: #6cb6ff !important;
+}
+.hljs-attr,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: #7ab3e0 !important;
+}
+
+/* ============================================================
+   Code block LIGHT — panel xám-xanh dịu, chữ tối (tương phản mềm).
+   Dark giữ bộ màu atom-one-dark (đã nắn xanh dương ở trên).
+   ============================================================ */
+html.light .bn-container [data-content-type="codeBlock"] {
+  box-shadow: 0 2px 10px rgba(27, 42, 62, 0.08);
+}
+html.light .bn-container [data-content-type="codeBlock"] code {
+  color: #33465e;
+}
+html.light .hljs { color: #33465e; }
+html.light .hljs-comment,
+html.light .hljs-quote { color: #8494a6 !important; }
+html.light .hljs-keyword,
+html.light .hljs-selector-tag,
+html.light .hljs-literal,
+html.light .hljs-doctag { color: #8341c8 !important; }
+html.light .hljs-string,
+html.light .hljs-addition,
+html.light .hljs-meta .hljs-string { color: #17718a !important; }
+html.light .hljs-number,
+html.light .hljs-attribute { color: #9c5a17 !important; }
+html.light .hljs-title,
+html.light .hljs-title.function_,
+html.light .hljs-name { color: #1d6ca3 !important; }
+html.light .hljs-attr,
+html.light .hljs-symbol,
+html.light .hljs-bullet,
+html.light .hljs-selector-class,
+html.light .hljs-selector-id { color: #276692 !important; }
+html.light .hljs-built_in,
+html.light .hljs-type,
+html.light .hljs-class .hljs-title { color: #8a6a1f !important; }
+html.light .hljs-variable,
+html.light .hljs-template-variable,
+html.light .hljs-deletion { color: #a84152 !important; }
+html.light .hljs-meta { color: #55677a !important; }

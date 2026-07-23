@@ -2,24 +2,37 @@
    kaiversus-notebook — global theme (ported từ site Jekyll cũ)
    ============================================================ */
 
-/* Mặc định = tối (deep steel). Sáng steel là chủ đạo, khai báo ở html.light. */
+/* ============================================================
+   SkyWhale palette — họ XANH DƯƠNG duy nhất (không xanh lá).
+   Dựa trên gradient: holy-night (nền dark + hero), arctic-ocean
+   (card), sky-reverie (nhấn sáng). --green là TÊN CŨ của biến
+   accent (giữ để khỏi sửa hàng loạt) — giá trị là XANH DƯƠNG.
+   ============================================================ */
 :root {
-  --bg:          #0d1a2a;
-  --bg-card:     #122236;
-  --bg-surface:  #17293f;
-  --border:      #24384f;
-  --border-dim:  #1a2b40;
+  /* dark — "holy night": navy sâu ngả xanh */
+  --bg:          #0a1a2b;
+  --bg-card:     #102338;
+  --bg-surface:  #162e47;
+  --border:      #26425f;
+  --border-dim:  #1a3049;
 
-  --text:        #dbe7f3;
-  --text-sub:    #9db2c8;
-  --text-muted:  #6c7f95;
-  --text-faint:  #33465c;
+  --text:        #d9e6f2;
+  --text-sub:    #a3b8cd;
+  --text-muted:  #7189a1;
+  --text-faint:  #3a5570;
 
-  --green:       #58a6ff;
-  --green-dim:   rgba(88, 166, 255, 0.12);
-  --green-glow:  rgba(88, 166, 255, 0.24);
-  --amber:       #e0af4a;
-  --red:         #e0655f;
+  --green:       #5ba2d9;               /* accent (xanh dương) */
+  --green-dim:   rgba(91, 162, 217, 0.13);
+  --green-glow:  rgba(91, 162, 217, 0.25);
+  --amber:       #d9a24a;
+  --red:         #d16a76;
+
+  --code-bg:     #142942;               /* code block NỔI hơn nền dark */
+  --code-border: rgba(140, 180, 220, 0.22);
+
+  --grad-hero:   linear-gradient(170deg, #232b52 0%, #15234a 38%, #0b1c36 72%, #071224 100%);   /* đêm sao: storm-satin + holy-night */
+  --grad-card:   linear-gradient(158deg, #2a5079 0%, #1c3a5c 100%);                /* arctic ocean */
+  --grad-accent: linear-gradient(135deg, #0f77bc 0%, #5aa9e6 100%);                /* sky reverie */
 
   --mono: "JetBrains Mono", "Courier New", monospace;
   --serif: "Newsreader", Georgia, serif;
@@ -30,22 +43,26 @@
 }
 
 html.light {
-  --bg:          #e8ebef;
-  --bg-card:     #eef2f6;
-  --bg-surface:  #e1e6ec;
-  --border:      #c6d0da;
-  --border-dim:  #d6dee6;
+  /* light (mặc định site) — xám-trắng steel */
+  --bg:          #d8dfe8;
+  --bg-card:     #e3e9f0;
+  --bg-surface:  #cbd6e2;
+  --border:      #a9bac9;
+  --border-dim:  #bfccd9;
 
-  --text:        #1f2d40;
-  --text-sub:    #3a4a60;
-  --text-muted:  #5d6c7e;
-  --text-faint:  #8194a6;
+  --text:        #1b2a3e;
+  --text-sub:    #384a5f;
+  --text-muted:  #55677a;
+  --text-faint:  #7d8fa3;
 
-  --green:       #286089;
-  --green-dim:   rgba(40, 96, 137, 0.12);
-  --green-glow:  rgba(40, 96, 137, 0.26);
-  --amber:       #b06a1e;
-  --red:         #b23a4a;
+  --green:       #276692;               /* accent (xanh dương đậm) */
+  --green-dim:   rgba(39, 102, 146, 0.12);
+  --green-glow:  rgba(39, 102, 146, 0.26);
+  --amber:       #a6621c;
+  --red:         #a84152;
+
+  --code-bg:     #cfd9e5;               /* light: code block DỊU — panel xám-xanh, chữ tối */
+  --code-border: #afc0d0;
 }
 
 *,
@@ -259,7 +276,7 @@ select.txt:focus {
   text-transform: uppercase;
   margin-bottom: 14px;
 }
-html.light .toc-title { color: #8a7a60; }
+html.light .toc-title { color: var(--text-faint); }
 
 .toc-list {
   display: flex;
@@ -267,7 +284,7 @@ html.light .toc-title { color: #8a7a60; }
   border-left: 1px solid #1e2d3d;
   padding-left: 12px;
 }
-html.light .toc-list { border-left-color: #c8bfaa; }
+html.light .toc-list { border-left-color: var(--border); }
 
 .toc-link {
   font-family: var(--mono);
@@ -284,12 +301,12 @@ html.light .toc-list { border-left-color: #c8bfaa; }
 .toc-link.h1, .toc-link.h2 { color: #9ab0c0; font-weight: 700; margin-top: 6px; }
 .toc-link.h3 { padding-left: 10px; font-size: 0.62rem; color: #607080; }
 .toc-link.h4 { padding-left: 20px; font-size: 0.6rem; color: #607080; }
-.toc-link.active { color: #3fb950; }
-html.light .toc-link { color: #9a8a70; }
-html.light .toc-link:hover { color: #2a2520; }
-html.light .toc-link.h1, html.light .toc-link.h2 { color: #8a7a60; }
-html.light .toc-link.h3, html.light .toc-link.h4 { color: #aa9a80; }
-html.light .toc-link.active { color: #1e6e28; }
+.toc-link.active { color: var(--green); }
+html.light .toc-link { color: var(--text-muted); }
+html.light .toc-link:hover { color: var(--text); }
+html.light .toc-link.h1, html.light .toc-link.h2 { color: var(--text-sub); }
+html.light .toc-link.h3, html.light .toc-link.h4 { color: var(--text-faint); }
+html.light .toc-link.active { color: var(--green); }
 
 @media (max-width: 1120px) {
   .reading-layout { grid-template-columns: minmax(0, var(--content-width)); padding: 0 20px; }

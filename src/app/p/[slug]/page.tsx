@@ -186,7 +186,7 @@ export default async function PostPage({
       <article className="wc-main">
         <div className="writeup-header">
           <div className="terminal-prompt">
-            <span style={{ color: "#4ade80" }}>
+            <span style={{ color: "var(--green)" }}>
               root@skywhale:~/{post.category}$
             </span>{" "}
             cat {post.slug ?? post.id}.md
